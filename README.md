@@ -1,6 +1,6 @@
 # 🎮 Level-Up Gamer
 
-![Banner](https://imgur.com/a/b4iTaCy)
+![Banner](https://imgur.com/3LPPXL7)
 *Bienvenido a Level-Up Gamer, tu tienda online para gamers en Chile.*
 
 ---
