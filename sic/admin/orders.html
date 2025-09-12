@@ -9,28 +9,31 @@
 </head>
 <body>
   <div class="container">
-    
+
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="logo">
-        <a href="dashboard.html">
-          <img src="../assets/imagenes/logo.png" alt="Logo">
+        <a href="../admin/index_admin.html">
+          <img src="../assets/imagenes/logo.png" alt="Logo de la empresa">
         </a>
       </div>
+
       <nav class="menu">
-        <a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+        <a href="../admin/index_admin.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
         <a href="pedidos.html" class="active"><i class="fa-solid fa-box"></i> Orders</a>
         <a href="inventory.html"><i class="fa-solid fa-warehouse"></i> Inventory</a>
         <a href="reports.html"><i class="fa-solid fa-chart-line"></i> Reports</a>
         <a href="employees.html"><i class="fa-solid fa-users"></i> Employees</a>
         <a href="customers.html"><i class="fa-solid fa-user-group"></i> Customers</a>
       </nav>
+
       <nav class="menu bottom">
         <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
         <a href="profile.html"><i class="fa-solid fa-id-badge"></i> Profile</a>
         <a href="search.html"><i class="fa-solid fa-magnifying-glass"></i> Search</a>
         <a href="help.html"><i class="fa-solid fa-circle-question"></i> Help</a>
       </nav>
+
       <div class="user-profile">
         <a href="profile.html">
           <i class="fa-solid fa-user"></i>
@@ -47,29 +50,38 @@
       </header>
 
       <section class="content">
-        <!-- Estadísticas rápidas -->
+
+        <!-- Tarjetas de métricas -->
         <div class="dashboard-cards">
           <div class="card">
-            <h3>Total Pedidos</h3>
-            <p id="total-orders">452</p>
+            <h3>Total Usuarios</h3>
+            <p id="total-users">1250</p>
           </div>
           <div class="card">
-            <h3>Pedidos Pendientes</h3>
-            <p id="pending-orders">34</p>
+            <h3>Usuarios Activos Hoy</h3>
+            <p id="active-today">340</p>
           </div>
           <div class="card">
-            <h3>Pedidos Enviados</h3>
-            <p id="shipped-orders">398</p>
+            <h3>Usuarios Activos Esta Semana</h3>
+            <p id="active-week">980</p>
           </div>
           <div class="card">
-            <h3>Ingresos Totales</h3>
-            <p id="total-revenue">$12,350</p>
+            <h3>Ventas / Transacciones</h3>
+            <p id="sales">452</p>
+          </div>
+          <div class="card">
+            <h3>Productos en Stock</h3>
+            <p id="in-stock">120</p>
+          </div>
+          <div class="card">
+            <h3>Productos Agotados</h3>
+            <p id="out-of-stock">8</p>
           </div>
         </div>
 
         <!-- Filtros de búsqueda -->
         <div class="filters">
-          <input type="text" id="search-input" placeholder="Buscar por cliente, juego o ID..." />
+          <input type="text" id="search-input" placeholder="Buscar por cliente, juego o ID...">
           <select id="status-filter">
             <option value="all">Todos</option>
             <option value="pending">Pendiente</option>
@@ -98,7 +110,7 @@
               <tr>
                 <td>#001</td>
                 <td>Juan</td>
-                <td>Cyberpunk 2077</td>
+                <td>Mando Xbox One</td>
                 <td>1</td>
                 <td>$60</td>
                 <td class="status pending">Pendiente</td>
@@ -111,9 +123,9 @@
               <tr>
                 <td>#002</td>
                 <td>Ana</td>
-                <td>FIFA 25</td>
-                <td>2</td>
-                <td>$120</td>
+                <td>Catan</td>
+                <td>1</td>
+                <td>$35</td>
                 <td class="status shipped">Enviado</td>
                 <td>2025-09-09</td>
                 <td>
@@ -124,9 +136,9 @@
               <tr>
                 <td>#003</td>
                 <td>Pedro</td>
-                <td>Call of Duty</td>
+                <td>Carcassonne</td>
                 <td>1</td>
-                <td>$70</td>
+                <td>$40</td>
                 <td class="status delivered">Entregado</td>
                 <td>2025-09-08</td>
                 <td>
@@ -141,9 +153,8 @@
     </main>
   </div>
 
-  <!-- JS -->
   <script>
-    // Cambiar estado de pedido al presionar botón
+    // Función para actualizar estado de pedidos
     function updateStatus(button, newStatus) {
       const row = button.closest('tr');
       const statusCell = row.querySelector('.status');
@@ -152,7 +163,7 @@
       alert('Estado actualizado a: ' + statusCell.textContent);
     }
 
-    // Filtro por búsqueda
+    // Filtro de búsqueda en tiempo real
     const searchInput = document.getElementById('search-input');
     const ordersBody = document.getElementById('orders-body');
 

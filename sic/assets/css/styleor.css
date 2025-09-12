@@ -1,4 +1,126 @@
-/* Tarjetas de estadísticas (mismo estilo que dashboard) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #000000; /* Fondo negro moderno */
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: #111; /* negro suave para diferenciar */
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #333;
+}
+
+.logo img {
+  width: 60px;  /* tamaño logo */
+  height: auto;
+}
+
+/* Menú */
+.menu {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #bbb;
+  text-decoration: none;
+  padding: 12px 20px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.menu a:hover,
+.menu a.active {
+  color: #1E90FF; /* Azul eléctrico */
+  background: rgba(30, 144, 255, 0.1);
+  border-left: 4px solid #39FF14; /* Verde neón */
+}
+
+/* Menú inferior */
+.menu.bottom {
+  margin-top: auto;
+  border-top: 1px solid #333;
+  padding-top: 10px;
+}
+
+/* Usuario */
+.user-profile {
+  padding: 15px 20px;
+  border-top: 1px solid #333;
+}
+
+.user-profile a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #bbb;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.user-profile a:hover {
+  color: #39FF14; /* Verde neón */
+}
+
+/* Contenido principal */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #111;
+  border-bottom: 1px solid #333;
+}
+
+.header h1 {
+  font-size: 20px;
+  color: #1E90FF; /* Azul eléctrico */
+}
+
+.header i {
+  color: #fff; /* Campana en blanco */
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.header i:hover {
+  color: #39FF14; /* Verde neón al pasar el mouse */
+}
+
+/* Dashboard Cards */
 .dashboard-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -34,23 +156,32 @@
   color: #fff;
 }
 
-/* Filtros */
+/* Filtros y barra de búsqueda */
 .filters {
   display: flex;
   gap: 15px;
   margin-bottom: 15px;
 }
 
-.filters input, .filters select {
+.filters input,
+.filters select {
   padding: 8px 12px;
   border-radius: 6px;
-  border: 1px solid #333;
-  background-color: #111;
-  color: #fff;
+  border: 1px solid #39FF14;   /* borde verde neón */
+  background-color: #111;       /* fondo negro */
+  color: #fff;                  /* texto blanco */
+  transition: all 0.3s;
 }
 
-.filters input::placeholder {
+.filters input::placeholder,
+.filters select::placeholder {
   color: #888;
+}
+
+.filters input:focus,
+.filters select:focus {
+  outline: none;
+  box-shadow: 0 0 8px #39FF14; /* glow verde al enfocar */
 }
 
 /* Tabla de pedidos */
@@ -59,7 +190,8 @@
   border-collapse: collapse;
 }
 
-.orders-table th, .orders-table td {
+.orders-table th,
+.orders-table td {
   padding: 12px;
   border-bottom: 1px solid #333;
   text-align: left;
@@ -82,31 +214,23 @@
 .status.delivered { color: #39FF14; }   /* Verde neón */
 .status.canceled { color: #FF4500; }    /* Rojo neón */
 
-/* Botones */
-button.btn-green {
-  background-color: #39FF14;
-  color: #000;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-button.btn-green:hover {
-  background-color: #32CC12;
-}
-
+/* Botones de acción en la tabla */
+button.btn-green,
 button.btn-red {
-  background-color: #FF4500;
-  color: #fff;
-  border: none;
+  background-color: #111;       /* fondo negro */
+  color: #39FF14;               /* texto verde neón */
+  border: 1px solid #39FF14;    /* borde verde neón */
   padding: 6px 10px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  transition: all 0.3s;
 }
 
+button.btn-green:hover,
 button.btn-red:hover {
-  background-color: #E03E00;
+  border: 2px solid #39FF14;   /* borde más grueso */
+  box-shadow: 0 0 10px #39FF14; /* glow verde */
+  background-color: #111;       /* fondo sigue negro */
+  color: #39FF14;               /* texto sigue verde neón */
 }
