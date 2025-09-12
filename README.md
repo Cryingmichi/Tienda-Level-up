@@ -36,11 +36,10 @@ Ser la tienda online líder en productos para gamers en Chile, reconocida por su
 | Herramienta | Icono | Uso |
 |------------|-------|-----|
 | HTML5 | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) | Estructura y contenido de las páginas web |
-| CSS3 | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) | Estilos visuales y diseño responsive |
+| CSS | ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) | Estilos visuales y diseño responsive |
 | JavaScript | ![JS](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) | Interactividad y funcionalidades dinámicas |
 | Bootstrap 5 | ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white) | Diseño rápido y responsivo |
 | Google Fonts | ![Google Fonts](https://img.shields.io/badge/Fonts-4285F4?style=flat&logo=google&logoColor=white) | Tipografía moderna (Roboto y Orbitron) |
-| Leaflet.js | ![Leaflet](https://img.shields.io/badge/Leaflet-2A93EE?style=flat&logo=leaflet&logoColor=white) | Mapas de ubicaciones de eventos gamer |
 | LocalStorage | ![LocalStorage](https://img.shields.io/badge/LocalStorage-FFA500?style=flat&logo=javascript&logoColor=white) | Persistencia de carrito de compras y preferencias de usuario |
 
 ---
