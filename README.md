@@ -6,20 +6,20 @@
 
 ---
 
-## 🌟 Descripción del Proyecto
+##  Descripción del Proyecto
 **Level-Up Gamer** es una tienda online dedicada a satisfacer las necesidades de los entusiastas de los videojuegos en Chile. Nuestra plataforma ofrece una amplia gama de productos, desde consolas y accesorios hasta computadores y sillas gamers, con un enfoque en **calidad, comunidad y experiencia del usuario**.  
 
 ---
 
-## 🎯 Misión
+##  Misión
 Proporcionar productos de alta calidad para gamers en todo Chile, ofreciendo una experiencia de compra única y personalizada, con enfoque en la **satisfacción del cliente** y el crecimiento de la **comunidad gamer**.
 
-## 👁️ Visión
+##  Visión
 Ser la tienda online líder en productos para gamers en Chile, reconocida por su **innovación**, **servicio al cliente excepcional** y un programa de **gamificación** que recompense a nuestros clientes más fieles.
 
 ---
 
-## 📦 Alcance del Proyecto
+##  Alcance del Proyecto
 - Registro y autenticación de usuarios (+18 años).  
 - Gestión de perfiles y preferencias de usuario.  
 - Visualización de catálogo de productos con filtros avanzados.  
@@ -32,7 +32,7 @@ Ser la tienda online líder en productos para gamers en Chile, reconocida por su
 
 ---
 
-## 💻 Tecnologías y Herramientas
+##  Tecnologías y Herramientas
 | Herramienta | Icono | Uso |
 |------------|-------|-----|
 | HTML5 | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) | Estructura y contenido de las páginas web |
@@ -44,7 +44,7 @@ Ser la tienda online líder en productos para gamers en Chile, reconocida por su
 
 ---
 
-## 🎨 Diseño Visual
+##  Diseño Visual
 - **Color de fondo principal:** Negro (#000000)  
 - **Colores de acento:** Azul eléctrico (#1E90FF) y Verde neón (#39FF14)  
 - **Tipografía principal:** Roboto  
@@ -54,7 +54,7 @@ Ser la tienda online líder en productos para gamers en Chile, reconocida por su
 
 ---
 
-## 🛠️ Funcionalidades
+##  Funcionalidades
 ### Registro y Autenticación
 - Usuarios mayores de 18 años.  
 - Descuento del 20% para correos Duoc.  
