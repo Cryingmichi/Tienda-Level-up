@@ -1,11 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../assets/css/estilo_admin.css">
+  <!-- Iconos de FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+  <div class="container">
     
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- LOGO SOLO -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="../assets/imagenes/logo.png" alt="Logo de la empresa">
+        </a>
+      </div>
+
+      <!-- Menú principal -->
+      <nav class="menu">
+        <a href="../admin/"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+        <a href="orders.html"><i class="fa-solid fa-box"></i> Orders</a>
+        <a href="inventory.html"><i class="fa-solid fa-warehouse"></i> Inventory</a>
+        <a href="reports.html"><i class="fa-solid fa-chart-line"></i> Reports</a>
+        <a href="employees.html"><i class="fa-solid fa-users"></i> Employees</a>
+        <a href="customers.html"><i class="fa-solid fa-user-group"></i> Customers</a>
+      </nav>
+
+      <!-- Menú inferior -->
+      <nav class="menu bottom">
+        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+        <a href="profile.html"><i class="fa-solid fa-id-badge"></i> Profile</a>
+        <a href="search.html"><i class="fa-solid fa-magnifying-glass"></i> Search</a>
+        <a href="help.html"><i class="fa-solid fa-circle-question"></i> Help</a>
+      </nav>
+
+      <!-- Usuario -->
+      <div class="user-profile">
+        <a href="profile.html">
+          <i class="fa-solid fa-user"></i>
+          <span>Profile</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main">
+      <header class="header">
+        <h1>¡HOLA Administrador!</h1>
+        <i class="fa-regular fa-bell"></i>
+      </header>
+
+      <!-- Sección principal del dashboard -->
+      <section class="content">
+
+        <!-- Tarjetas de métricas -->
+        <div class="dashboard-cards">
+          <div class="card">
+            <h3>Total Usuarios</h3>
+            <p id="total-users">1250</p>
+          </div>
+          <div class="card">
+            <h3>Usuarios Activos Hoy</h3>
+            <p id="active-today">340</p>
+          </div>
+          <div class="card">
+            <h3>Usuarios Activos Esta Semana</h3>
+            <p id="active-week">980</p>
+          </div>
+          <div class="card">
+            <h3>Ventas / Transacciones</h3>
+            <p id="sales">452</p>
+          </div>
+          <div class="card">
+            <h3>Productos en Stock</h3>
+            <p id="in-stock">120</p>
+          </div>
+          <div class="card">
+            <h3>Productos Agotados</h3>
+            <p id="out-of-stock">8</p>
+          </div>
+        </div>
+
+        <!-- Actividad reciente -->
+        <div class="recent-activity">
+          <h3>Compras Recientes</h3>
+          <ul>
+            <li>Usuario Juan compró Mando de Xbox one</li>
+            <li>Usuario Ana compró Catan</li>
+            <li>Usuario Pedro compró Carcassonne</li>
+            <li>Usuario Lucia canceló Auriculares Gamer HyperX Cloud II</li>
+            <li>Usuario Carlos compró PlayStation 5 </li>
+          </ul>
+        </div>
+
+      </section>
+    </main>
+  </div>
 </body>
 </html>

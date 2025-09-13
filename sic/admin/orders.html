@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedidos - Panel Admin</title>
+  <link rel="stylesheet" href="../assets/css/styleor.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <a href="../admin/index_admin.html">
+          <img src="../assets/imagenes/logo.png" alt="Logo de la empresa">
+        </a>
+      </div>
+
+      <nav class="menu">
+        <a href="../admin/index_admin.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+        <a href="pedidos.html" class="active"><i class="fa-solid fa-box"></i> Orders</a>
+        <a href="inventory.html"><i class="fa-solid fa-warehouse"></i> Inventory</a>
+        <a href="reports.html"><i class="fa-solid fa-chart-line"></i> Reports</a>
+        <a href="employees.html"><i class="fa-solid fa-users"></i> Employees</a>
+        <a href="customers.html"><i class="fa-solid fa-user-group"></i> Customers</a>
+      </nav>
+
+      <nav class="menu bottom">
+        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+        <a href="profile.html"><i class="fa-solid fa-id-badge"></i> Profile</a>
+        <a href="search.html"><i class="fa-solid fa-magnifying-glass"></i> Search</a>
+        <a href="help.html"><i class="fa-solid fa-circle-question"></i> Help</a>
+      </nav>
+
+      <div class="user-profile">
+        <a href="profile.html">
+          <i class="fa-solid fa-user"></i>
+          <span>Profile</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main">
+      <header class="header">
+        <h1>¡HOLA Administrador!</h1>
+        <i class="fa-regular fa-bell"></i>
+      </header>
+
+      <section class="content">
+
+        <!-- Tarjetas de métricas -->
+        <div class="dashboard-cards">
+          <div class="card">
+            <h3>Total Usuarios</h3>
+            <p id="total-users">1250</p>
+          </div>
+          <div class="card">
+            <h3>Usuarios Activos Hoy</h3>
+            <p id="active-today">340</p>
+          </div>
+          <div class="card">
+            <h3>Usuarios Activos Esta Semana</h3>
+            <p id="active-week">980</p>
+          </div>
+          <div class="card">
+            <h3>Ventas / Transacciones</h3>
+            <p id="sales">452</p>
+          </div>
+          <div class="card">
+            <h3>Productos en Stock</h3>
+            <p id="in-stock">120</p>
+          </div>
+          <div class="card">
+            <h3>Productos Agotados</h3>
+            <p id="out-of-stock">8</p>
+          </div>
+        </div>
+
+        <!-- Filtros de búsqueda -->
+        <div class="filters">
+          <input type="text" id="search-input" placeholder="Buscar por cliente, juego o ID...">
+          <select id="status-filter">
+            <option value="all">Todos</option>
+            <option value="pending">Pendiente</option>
+            <option value="shipped">Enviado</option>
+            <option value="delivered">Entregado</option>
+            <option value="canceled">Cancelado</option>
+          </select>
+        </div>
+
+        <!-- Tabla de pedidos -->
+        <div class="orders-table">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Juego</th>
+                <th>Cantidad</th>
+                <th>Precio Total</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="orders-body">
+              <tr>
+                <td>#001</td>
+                <td>Juan</td>
+                <td>Mando Xbox One</td>
+                <td>1</td>
+                <td>$60</td>
+                <td class="status pending">Pendiente</td>
+                <td>2025-09-10</td>
+                <td>
+                  <button class="btn-green" onclick="updateStatus(this, 'shipped')">Marcar Enviado</button>
+                  <button class="btn-red" onclick="updateStatus(this, 'canceled')">Cancelar</button>
+                </td>
+              </tr>
+              <tr>
+                <td>#002</td>
+                <td>Ana</td>
+                <td>Catan</td>
+                <td>1</td>
+                <td>$35</td>
+                <td class="status shipped">Enviado</td>
+                <td>2025-09-09</td>
+                <td>
+                  <button class="btn-green" onclick="updateStatus(this, 'delivered')">Marcar Entregado</button>
+                  <button class="btn-red" onclick="updateStatus(this, 'canceled')">Cancelar</button>
+                </td>
+              </tr>
+              <tr>
+                <td>#003</td>
+                <td>Pedro</td>
+                <td>Carcassonne</td>
+                <td>1</td>
+                <td>$40</td>
+                <td class="status delivered">Entregado</td>
+                <td>2025-09-08</td>
+                <td>
+                  <button class="btn-red" onclick="updateStatus(this, 'canceled')">Cancelar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Función para actualizar estado de pedidos
+    function updateStatus(button, newStatus) {
+      const row = button.closest('tr');
+      const statusCell = row.querySelector('.status');
+      statusCell.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
+      statusCell.className = 'status ' + newStatus;
+      alert('Estado actualizado a: ' + statusCell.textContent);
+    }
+
+    // Filtro de búsqueda en tiempo real
+    const searchInput = document.getElementById('search-input');
+    const ordersBody = document.getElementById('orders-body');
+
+    searchInput.addEventListener('keyup', () => {
+      const filter = searchInput.value.toLowerCase();
+      Array.from(ordersBody.rows).forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(filter) ? '' : 'none';
+      });
+    });
+
+    // Filtro por estado
+    const statusFilter = document.getElementById('status-filter');
+    statusFilter.addEventListener('change', () => {
+      const filter = statusFilter.value;
+      Array.from(ordersBody.rows).forEach(row => {
+        const status = row.querySelector('.status').textContent.toLowerCase();
+        row.style.display = (filter === 'all' || status === filter) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
