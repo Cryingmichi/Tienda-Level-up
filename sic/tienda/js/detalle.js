@@ -37,8 +37,6 @@ const renderEspecificaciones = (detalles) => {
   contenedor.innerHTML = html;
 };
 
-
-
 // CARGAR PRODUCTO
 const cargarProducto = async () => {
   try {

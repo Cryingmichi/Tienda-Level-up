@@ -11,7 +11,7 @@ const actualizarUIUsuario = () => {
 };
 
 // Renderizar productos
-const renderizarProductos = (filtro={q:"", cat:"Todas", min:0, max:Infinity}) => {
+const renderizarProductos = (filtro = { q: "", cat: "Todas", min: 0, max: Infinity }) => {
   const contenedor = document.getElementById("products");
   contenedor.innerHTML = "";
 
@@ -25,14 +25,17 @@ const renderizarProductos = (filtro={q:"", cat:"Todas", min:0, max:Infinity}) =>
   filtrados.forEach(p => {
     const col = document.createElement("div");
     col.className = "col-md-4";
-  col.innerHTML = `
-    <div class="card h-100 shadow-sm">
-      <img src="${p.imagen}" alt="${p.nombre}" class="card-img-top" style="height:200px; object-fit:cover;">
-      <div class="card-body d-flex flex-column">
-        <h5 class="card-title">${p.nombre}</h5>
-        <p class="card-text text-secondary">${p.categoria}</p>
-        <p class="price">$${p.precio.toLocaleString()}</p>
-        <div class="rating mb-2">${"★".repeat(Math.floor(p.rating))}</div>
+
+    col.innerHTML = `
+      <div class="card h-100 shadow-sm">
+        <div class="card-img-container">
+          <img src="${p.imagen}" alt="${p.nombre}">
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">${p.nombre}</h5>
+          <p class="card-text text-secondary">${p.categoria}</p>
+          <p class="price">$${p.precio.toLocaleString()}</p>
+          <div class="rating mb-2">${"★".repeat(Math.floor(p.rating))}</div>
           <div class="mt-auto d-flex gap-2">
             <button class="btn btn-accent flex-grow-1" onclick="agregarAlCarrito('${p.id}')">
               <i class="bi bi-cart3 me-1"></i>Agregar
@@ -41,12 +44,14 @@ const renderizarProductos = (filtro={q:"", cat:"Todas", min:0, max:Infinity}) =>
               <i class="bi bi-eye me-1"></i>Ver detalles
             </a>
           </div>
+        </div>
       </div>
-    </div>
-  `;
+    `;
+
     contenedor.appendChild(col);
   });
 };
+
 
 
 // Carrito
