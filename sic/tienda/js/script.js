@@ -1,18 +1,53 @@
+// --- VARIABLES GLOBALES ---
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-let usuario = JSON.parse(localStorage.getItem("usuario")) || null;
+let usuario = null; // Se inicializa en DOMContentLoaded
 let productos = [];
 
+// --- FUNCIONES ---
+// Actualiza contador del carrito
 const actualizarContadorCarrito = () => {
   document.getElementById("cartCount").textContent = carrito.length;
 };
 
-const actualizarUIUsuario = () => {
-  document.getElementById("userNameShort").textContent = usuario ? usuario.nombre : "Invitado";
+// Actualiza navbar con usuario
+const actualizarNavbarUsuario = () => {
+  const userNameSpan = document.getElementById("userNameShort");
+  const menu = document.querySelectorAll("#nav .dropdown-item");
+
+  if (usuario && userNameSpan) {
+    userNameSpan.textContent = usuario.nombre;
+
+    // Mostrar perfil y logout, ocultar ingresar/registrar
+    menu.forEach(item => {
+      if (item.textContent.includes("Ingresar") || item.textContent.includes("Registrar")) {
+        item.style.display = "none";
+      }
+      if (item.id === "btnLogout") {
+        item.style.display = "block";
+        item.addEventListener("click", () => {
+          localStorage.removeItem("usuario");
+          location.reload();
+        });
+      }
+    });
+  } else {
+    // Usuario no activo: mostrar ingresar/registrar, ocultar logout
+    menu.forEach(item => {
+      if (item.textContent.includes("Ingresar") || item.textContent.includes("Registrar")) {
+        item.style.display = "block";
+      }
+      if (item.id === "btnLogout") {
+        item.style.display = "none";
+      }
+    });
+    if (userNameSpan) userNameSpan.textContent = "Invitado";
+  }
 };
 
-// Renderizar productos
+// Renderiza productos
 const renderizarProductos = (filtro = { q: "", cat: "Todas", min: 0, max: Infinity }) => {
   const contenedor = document.getElementById("products");
+  if(!contenedor) return;
   contenedor.innerHTML = "";
 
   let filtrados = productos.filter(p => {
@@ -52,9 +87,7 @@ const renderizarProductos = (filtro = { q: "", cat: "Todas", min: 0, max: Infini
   });
 };
 
-
-
-// Carrito
+// Agregar producto al carrito
 const agregarAlCarrito = (id) => {
   const producto = productos.find(p => p.id === id);
   if (producto) {
@@ -65,81 +98,81 @@ const agregarAlCarrito = (id) => {
   }
 };
 
-// Autenticacion
-const login = (nombre,email) => {
-  usuario = {nombre,email};
-  localStorage.setItem("usuario", JSON.stringify(usuario));
-  actualizarUIUsuario();
-};
-
-const logout = () => {
-  usuario = null;
-  localStorage.removeItem("usuario");
-  actualizarUIUsuario();
-};
-
 // Buscador avanzado
 const btnAbrirBuscador = document.getElementById("btnAbrirBuscador");
 const contenedorBuscador = document.getElementById("buscador");
 
-btnAbrirBuscador.addEventListener("click", () => {
-  contenedorBuscador.classList.toggle("buscador-abierto");
-  contenedorBuscador.classList.toggle("buscador-cerrado");
-});
+if(btnAbrirBuscador && contenedorBuscador){
+  btnAbrirBuscador.addEventListener("click", () => {
+    contenedorBuscador.classList.toggle("buscador-abierto");
+    contenedorBuscador.classList.toggle("buscador-cerrado");
+  });
+}
 
+// Inicializar filtros
 const inicializarFiltros = () => {
   const btnFilter = document.getElementById("btnFilter");
   const btnClear = document.getElementById("btnClear");
 
-  btnFilter.addEventListener("click", () => {
-    const q = document.getElementById("q").value;
-    const cat = document.getElementById("cat").value;
-    const min = Number(document.getElementById("minPrice").value) || 0;
-    const max = Number(document.getElementById("maxPrice").value) || Infinity;
-    renderizarProductos({q, cat, min, max});
-  });
+  if(btnFilter && btnClear){
+    btnFilter.addEventListener("click", () => {
+      const q = document.getElementById("q").value;
+      const cat = document.getElementById("cat").value;
+      const min = Number(document.getElementById("minPrice").value) || 0;
+      const max = Number(document.getElementById("maxPrice").value) || Infinity;
+      renderizarProductos({q, cat, min, max});
+    });
 
-  btnClear.addEventListener("click", () => {
-    document.getElementById("q").value = "";
-    document.getElementById("minPrice").value = "";
-    document.getElementById("maxPrice").value = "";
-    renderizarProductos();
-  });
+    btnClear.addEventListener("click", () => {
+      document.getElementById("q").value = "";
+      document.getElementById("minPrice").value = "";
+      document.getElementById("maxPrice").value = "";
+      renderizarProductos();
+    });
+  }
 };
 
-
-// Inicializacion
+// Inicialización principal
 const boot = async () => {
   try {
     const resp = await fetch("data/productos.json");
     const data = await resp.json();
 
-    productos = data.productos; // productos
-    const categorias = ["Todas", ...data.categorias]; // categorías
+    productos = data.productos;
+    const categorias = ["Todas", ...data.categorias];
 
     // Inicializar UI
     actualizarContadorCarrito();
-    actualizarUIUsuario();
     renderizarProductos();
 
     // Rellenar select de categorías
     const catSelect = document.getElementById("cat");
-    categorias.forEach(c => {
-      const opt = document.createElement("option");
-      opt.value = c;
-      opt.textContent = c;
-      catSelect.appendChild(opt);
-    });
+    if(catSelect){
+      categorias.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        catSelect.appendChild(opt);
+      });
+    }
 
     // Inicializar filtros
     inicializarFiltros();
 
     // Año en footer
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const yearEl = document.getElementById("year");
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
+
   } catch (error) {
     console.error("Error cargando productos:", error);
-    document.getElementById("products").innerHTML = "<p class='text-danger'>No se pudieron cargar los productos.</p>";
+    const contenedor = document.getElementById("products");
+    if(contenedor) contenedor.innerHTML = "<p class='text-danger'>No se pudieron cargar los productos.</p>";
   }
 };
 
-boot();
+// Ejecutar boot y actualizar navbar después de DOM cargado
+document.addEventListener("DOMContentLoaded", () => {
+  usuario = JSON.parse(localStorage.getItem("usuario")) || null;
+  actualizarNavbarUsuario();
+  boot();
+});

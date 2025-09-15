@@ -18,7 +18,7 @@
       "precio": 29990,
       "rating": 4.5,
       "descripcion": "Un clásico juego de estrategia donde los jugadores compiten por colonizar y expandirse en la isla de Catan. Ideal para 3-4 jugadores y perfecto para noches de juego en familia o con amigos.",
-      "imagen": "img/catanJuegoMesa.jpg",
+      "imagen": "img/catanJuegoMesa.png",
       "detalles": {
         "Edad recomendada": "10+ años",
         "Jugadores": "3 - 4",
@@ -34,7 +34,7 @@
       "precio": 24990,
       "rating": 4,
       "descripcion": "Un juego de colocación de fichas donde los jugadores construyen el paisaje alrededor de la fortaleza medieval de Carcassonne. Ideal para 2-5 jugadores y fácil de aprender.",
-      "imagen": "img/carcassonneJuegoMesa.jpg",
+      "imagen": "img/carcassonneJuegoMesa.png",
       "detalles": {
         "Edad recomendada": "8+ años",
         "Jugadores": "2 - 5",
@@ -172,7 +172,7 @@
       "imagen": "img/PoleraLevelUP.png",
       "detalles": {
         "Material": "Algodón 100%",
-        "Tallas": "S, M, L, XL, XXL",
+        "Tallas": "S, M, L, XL, XXL, XXXL",
         "Colores disponibles": "Negro, Blanco, Rojo",
         "Personalización": "Texto o imagen a elección",
         "Estilo": "Unisex"
