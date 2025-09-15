@@ -18,7 +18,7 @@
       "precio": 29990,
       "rating": 4.5,
       "descripcion": "Un clásico juego de estrategia donde los jugadores compiten por colonizar y expandirse en la isla de Catan. Ideal para 3-4 jugadores y perfecto para noches de juego en familia o con amigos.",
-      "imagen": "imagenes/catan.jpg",
+      "imagen": "img/catanJuegoMesa.png",
       "detalles": {
         "Edad recomendada": "10+ años",
         "Jugadores": "3 - 4",
@@ -34,7 +34,7 @@
       "precio": 24990,
       "rating": 4,
       "descripcion": "Un juego de colocación de fichas donde los jugadores construyen el paisaje alrededor de la fortaleza medieval de Carcassonne. Ideal para 2-5 jugadores y fácil de aprender.",
-      "imagen": "imagenes/juego_mesa",
+      "imagen": "img/carcassonneJuegoMesa.png",
       "detalles": {
         "Edad recomendada": "8+ años",
         "Jugadores": "2 - 5",
@@ -46,11 +46,11 @@
     {
       "id": "AC001",
       "categoria": "Accesorios",
-      "nombre": "Controlador Inalámbrico Xbox Series X",
+      "nombre": "Control Inalámbrico Xbox Series X",
       "precio": 59990,
       "rating": 4.5,
       "descripcion": "Ofrece una experiencia de juego cómoda con botones mapeables y una respuesta táctil mejorada. Compatible con consolas Xbox y PC.",
-      "imagen": "imagenes/controlador_xbox.jpg",
+      "imagen": "img/accesorioMandoXbox.png",
       "detalles": {
         "Marca": "Microsoft",
         "Compatibilidad": "Xbox Series X|S, Xbox One, Windows 10/11, Android, iOS",
@@ -66,7 +66,7 @@
       "precio": 79990,
       "rating": 4.5,
       "descripcion": "Proporcionan un sonido envolvente de calidad con un micrófono desmontable y almohadillas de espuma viscoelástica para mayor comodidad durante largas sesiones de juego.",
-      "imagen": "imagenes/auriculares_hyperx.jpg",
+      "imagen": "img/AuricularesHyperXCloudII.png",
       "detalles": {
         "Marca": "HyperX",
         "Tipo": "Over-ear",
@@ -83,7 +83,7 @@
       "precio": 549990,
       "rating": 5,
       "descripcion": "La consola de última generación de Sony, que ofrece gráficos impresionantes y tiempos de carga ultrarrápidos para una experiencia de juego inmersiva.",
-      "imagen": "imagenes/ps5.jpg",
+      "imagen": "img/playStation5.png",
       "detalles": {
         "Marca": "Sony",
         "Almacenamiento": "825 GB SSD",
@@ -100,7 +100,7 @@
       "precio": 1299990,
       "rating": 5,
       "descripcion": "Un potente equipo diseñado para los gamers más exigentes, equipado con los últimos componentes para ofrecer un rendimiento excepcional en cualquier juego.",
-      "imagen": "imagenes/pc_rog.jpg",
+      "imagen": "img/PcAsusROG.png",
       "detalles": {
         "Marca": "ASUS",
         "Procesador": "Intel Core i7 12ª Gen",
@@ -117,7 +117,7 @@
       "precio": 349990,
       "rating": 4.5,
       "descripcion": "Diseñada para el máximo confort, esta silla ofrece un soporte ergonómico y personalización ajustable para sesiones de juego prolongadas.",
-      "imagen": "IMG",
+      "imagen": "img/sillaSecretlab.png",
       "detalles": {
         "Marca": "Secretlab",
         "Modelo": "Titan Evo",
@@ -135,7 +135,7 @@
       "precio": 49990,
       "rating": 4.5,
       "descripcion": "Con sensor de alta precisión y botones personalizables, este mouse es ideal para gamers que buscan un control preciso y personalización.",
-      "imagen": "imagenes/mouse_logitech_g502.jpg",
+      "imagen": "img/MouseLogitech.png",
       "detalles": {
         "Marca": "Logitech",
         "Sensor": "HERO 25K",
@@ -152,7 +152,7 @@
       "precio": 29990,
       "rating": 4,
       "descripcion": "Ofrece un área de juego amplia con iluminación RGB personalizable, asegurando una superficie suave y uniforme para el movimiento del mouse.",
-      "imagen": "imagenes/mousepad_razer.jpg",
+      "imagen": "img/MousepadRazer.png",
       "detalles": {
         "Marca": "Razer",
         "Dimensiones": "294 x 920 x 3 mm",
@@ -169,10 +169,10 @@
       "precio": 14990,
       "rating": 4,
       "descripcion": "Una camiseta cómoda y estilizada, con la posibilidad de personalizarla con tu gamer tag o diseño favorito.",
-      "imagen": "imagenes/polera_levelup.jpg",
+      "imagen": "img/PoleraLevelUP.png",
       "detalles": {
         "Material": "Algodón 100%",
-        "Tallas": "S, M, L, XL, XXL",
+        "Tallas": "S, M, L, XL, XXL, XXXL",
         "Colores disponibles": "Negro, Blanco, Rojo",
         "Personalización": "Texto o imagen a elección",
         "Estilo": "Unisex"
