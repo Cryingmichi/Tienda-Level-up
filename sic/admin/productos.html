@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos</title>
+  <link rel="stylesheet" href="../assets/css/style_p_u.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- LOGO SOLO -->
+      <div class="logo">
+        <a href="../index.html">
+          <img src="../assets/imagenes/logo.png" alt="Logo de la empresa">
+        </a>
+      </div>
+       <!-- Menú principal -->
+      <nav class="menu">
+        <a href="../admin/index_admin.html" ><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+        <a href="productos.html" class="active"><i class="fa-solid fa-box"></i> Productos</a>
+        <a href="usuarios.html" ><i class="fa-solid fa-users"></i> Usuarios</a>
+        <a href="perfil_admin.html"><i class="fa-solid fa-user-gear"></i> configuración del admin</a>
+      </nav>
+      
+      <!-- Usuario -->
+      <div class="user-profile">
+        <a href="perfil_admin.html">
+          <i class="fa-solid fa-user"></i>
+          <span>Administrador</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+      <div class="header">
+        <h1>Productos</h1>
+        <button class="btn-primary">Nuevo Producto</button>
+      </div>
+
+      <div class="content">
+        <!-- Filtro -->
+        <div class="filter-bar">
+          <label for="filter">Filtrar:</label>
+          <select id="filter">
+            <option>Todos</option>
+            <option>Disponibles</option>
+            <option>Agotados</option>
+          </select>
+        </div>
+
+        <!-- Tabla -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Stock</th>
+                <th>Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>001</td>
+                <td>Teclado Gamer</td>
+                <td>Accesorios</td>
+                <td>Disponible</td>
+                <td>$25.000</td>
+              </tr>
+              <tr>
+                <td>002</td>
+                <td>Monitor 24"</td>
+                <td>Pantallas</td>
+                <td>Agotado</td>
+                <td>$120.000</td>
+              </tr>
+              <tr>
+                <td>003</td>
+                <td>Mouse Inalámbrico</td>
+                <td>Accesorios</td>
+                <td>Disponible</td>
+                <td>$15.000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Paginación -->
+        <div class="pagination">
+          <a href="#">«</a>
+          <a href="#" class="active">1</a>
+          <a href="#" >2</a>
+          <a href="#">3</a>
+          <a href="#">»</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

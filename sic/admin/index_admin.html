@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Estadisticas</title>
   <link rel="stylesheet" href="../assets/css/estilo_admin.css">
   <!-- Iconos de FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,34 +15,24 @@
     <aside class="sidebar">
       <!-- LOGO SOLO -->
       <div class="logo">
-        <a href="index.html">
+        <a href="../index.html">
           <img src="../assets/imagenes/logo.png" alt="Logo de la empresa">
         </a>
       </div>
 
       <!-- Menú principal -->
       <nav class="menu">
-        <a href="../admin/"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
-        <a href="orders.html"><i class="fa-solid fa-box"></i> Orders</a>
-        <a href="inventory.html"><i class="fa-solid fa-warehouse"></i> Inventory</a>
-        <a href="reports.html"><i class="fa-solid fa-chart-line"></i> Reports</a>
-        <a href="employees.html"><i class="fa-solid fa-users"></i> Employees</a>
-        <a href="customers.html"><i class="fa-solid fa-user-group"></i> Customers</a>
-      </nav>
-
-      <!-- Menú inferior -->
-      <nav class="menu bottom">
-        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
-        <a href="profile.html"><i class="fa-solid fa-id-badge"></i> Profile</a>
-        <a href="search.html"><i class="fa-solid fa-magnifying-glass"></i> Search</a>
-        <a href="help.html"><i class="fa-solid fa-circle-question"></i> Help</a>
+        <a href="../admin/index_admin.html" class="active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+        <a href="productos.html"><i class="fa-solid fa-box"></i> Productos</a>
+        <a href="usuarios.html"><i class="fa-solid fa-users"></i> Usuarios</a>
+        <a href="perfil_admin.html"><i class="fa-solid fa-user-gear"></i> configuración del admin</a>
       </nav>
 
       <!-- Usuario -->
       <div class="user-profile">
-        <a href="profile.html">
+        <a href="perfil_admin.html">
           <i class="fa-solid fa-user"></i>
-          <span>Profile</span>
+          <span>Administrador</span>
         </a>
       </div>
     </aside>
@@ -51,7 +41,15 @@
     <main class="main">
       <header class="header">
         <h1>¡HOLA Administrador!</h1>
-        <i class="fa-regular fa-bell"></i>
+        <div class="notification-wrapper" style="position: relative; display: inline-block;">
+          <i class="fa-regular fa-bell fa-beat notification-bell"></i>
+
+          <div class="notification-box">
+            <div class="notification-item">nuevos usuarios</div>
+            <div class="notification-item">nuevos productos</div>
+            <div class="notification-item">revisa tu user</div>
+          </div>
+        </div>
       </header>
 
       <!-- Sección principal del dashboard -->
@@ -101,4 +99,25 @@
     </main>
   </div>
 </body>
+<script>
+// 1️ Seleccionamos los elementos del DOM que vamos a usar
+const bell = document.querySelector('.notification-bell'); // Selecciona el ícono de la campana
+const box = document.querySelector('.notification-box');   // Selecciona el recuadro de notificaciones
+
+// 2️ Agregamos un "evento de clic" a la campana para mostrar u ocultar el recuadro
+bell.addEventListener('click', () => {
+    // Si el recuadro está visible (display === 'block') se oculta, si está oculto se muestra
+    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+});
+
+// 3️ Agregamos un evento al documento completo para cerrar el recuadro al hacer clic fuera
+document.addEventListener('click', (e) => {
+    // e.target es el elemento en el que hicimos clic
+    // .contains verifica si el elemento clickeado está dentro de la campana o del recuadro
+    if (!bell.contains(e.target) && !box.contains(e.target)) {
+        box.style.display = 'none'; // Si clickeamos fuera, ocultamos el recuadro
+    }
+});
+</script>
+
 </html>

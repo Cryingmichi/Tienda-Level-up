@@ -1,0 +1,214 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #000; /* Fondo negro moderno */
+  color: #fff;
+}
+
+/* Layout principal */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+  width: 220px;
+  background: #111; /* gris oscuro */
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.logo {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #333;
+}
+
+.logo img {
+  width: 60px;
+  height: auto;
+}
+
+/* Menú de navegación */
+.menu {
+  flex: 1; /* se expande para ocupar el espacio disponible */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+  padding: 10px 0;
+  background: #111;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #bbb;
+  text-decoration: none;
+  padding: 12px 20px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.menu a:hover,
+.menu a.active {
+  color: #1E90FF; /* azul eléctrico */
+  background: rgba(30, 144, 255, 0.1);
+  border-left: 4px solid #39FF14; /* verde neón */
+}
+
+/* Perfil de usuario abajo */
+.user-profile {
+  padding: 15px 20px;
+  border-top: 1px solid #333;
+}
+
+.user-profile a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #bbb;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.user-profile a:hover {
+  color: #39FF14; /* verde neón */
+}
+
+/* ========== CONTENIDO PRINCIPAL ========== */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+}
+
+/* Header con título y botón */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #111;
+  border-bottom: 1px solid #333;
+}
+
+.header h1 {
+  font-size: 20px;
+  color: #1E90FF; /* azul eléctrico */
+}
+
+/* Botón principal (Nuevo Producto / Nuevo Usuario) */
+.btn-primary {
+  background: #1E90FF; /* azul eléctrico */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #39FF14; /* verde neón */
+  color: #000;
+}
+
+/* Contenido general */
+.content {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ========== FILTROS ========== */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filter-bar label {
+  color: #ccc;
+  font-size: 14px;
+}
+
+.filter-bar select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.filter-bar select:hover {
+  border-color: #39FF14;
+}
+
+/* ========== TABLA ========== */
+.table-container {
+  overflow-x: auto; /* scroll horizontal si es muy ancha */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+thead {
+  background: #1E90FF; /* encabezado azul */
+  color: #fff;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #333;
+  text-align: left;
+  font-size: 14px;
+}
+
+tbody tr:nth-child(even) {
+  background: #222; /* filas alternadas gris */
+}
+
+tbody tr:hover {
+  background: rgba(57, 255, 20, 0.1); /* efecto verde neón */
+}
+
+/* ========== PAGINACIÓN ========== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.pagination a {
+  padding: 8px 12px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #bbb;
+  transition: 0.3s;
+}
+
+.pagination a:hover,
+.pagination a.active {
+  background: #39FF14;
+  color: #000;
+  font-weight: bold;
+}
