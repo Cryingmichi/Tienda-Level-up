@@ -37,3 +37,4 @@ window.devolverStock = (id, cantidad) => {
     window.actualizarProductoDetalleStock?.();
   }
 };
+

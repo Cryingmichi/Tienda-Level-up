@@ -361,3 +361,5 @@ window.addEventListener("storage", (e) => {
     window.actualizarProductoDetalleStock?.();
   }
 });
+
+
