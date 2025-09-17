@@ -1,4 +1,4 @@
-# 🎮 Level-Up Gamer
+ Level-Up Gamer
 
 ![Banner](https://i.imgur.com/3LPPXL7.png)
 
@@ -6,7 +6,7 @@
 
 ---
 
-##  Descripción del Proyecto
+  Descripción del Proyecto
 **Level-Up Gamer** es una tienda online dedicada a satisfacer las necesidades de los entusiastas de los videojuegos en Chile. Nuestra plataforma ofrece una amplia gama de productos, desde consolas y accesorios hasta computadores y sillas gamers, con un enfoque en **calidad, comunidad y experiencia del usuario**.  
 
 ---
@@ -86,4 +86,25 @@ Ser la tienda online líder en productos para gamers en Chile, reconocida por su
 ---
 
 ## 🗂️ Estructura del Proyecto
-........
+sic
+|
+|admin
+|    |
+|    |js
+|    |html
+|
+|assets
+|     |
+|     |css
+|     |imagenes
+|
+|tienda
+|     |
+|     |css
+|     |data
+|     |img
+|     |js
+|     |html
+|
+|
+|.gitignore
