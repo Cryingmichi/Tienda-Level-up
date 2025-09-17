@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es-CL" data-bs-theme="dark">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Level-Up Gamer · Nosotros</title>
+
+  <!-- Bootstrap & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
   <link rel="stylesheet" href="css/style.css">
@@ -15,6 +17,24 @@
       border-radius: 0.5rem;
       transition: transform 0.3s ease;
     }
+
+    .team-card-img-container {
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0b0b0b; /* Fondo oscuro si la imagen tiene transparencia */
+    }
+
+    .team-card-img-container img {
+      width: auto;
+      height: 100%;
+      object-fit: contain;
+    }
+
     .team-card img:hover {
       transform: scale(1.05);
     }
@@ -22,40 +42,40 @@
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg border-bottom border-secondary-subtle sticky-top" style="background:#05050580;backdrop-filter: blur(8px);">
-    <div class="container">
-      <a class="navbar-brand brand neon" href="/sic/index.html"><i class="bi bi-joystick me-2"></i>Level‑Up Gamer</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div id="nav" class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
-          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-          <li class="nav-item"><a class="nav-link" href="eventos.html">Eventos</a></li>
-          <li class="nav-item"><a class="nav-link" href="soporte.html">Soporte</a></li>
-          <li class="nav-item"><a class="nav-link active" href="#">Nosotros</a></li>
-        </ul>
-        <div class="d-flex gap-2 align-items-center">
-          <button class="btn btn-outline-light" data-bs-toggle="offcanvas" data-bs-target="#offcart">
-            <i class="bi bi-cart3"></i> <span class="ms-1" id="cartCount">0</span>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg border-bottom border-secondary-subtle sticky-top" style="background:#05050580;backdrop-filter: blur(8px);">
+  <div class="container">
+    <a class="navbar-brand brand neon" href="../index.html"><i class="bi bi-joystick me-2"></i>Level‑Up Gamer</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="nav" class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="eventos.html">Eventos</a></li>
+        <li class="nav-item"><a class="nav-link" href="soporte.html">Soporte</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">Nosotros</a></li>
+      </ul>
+      <div class="d-flex gap-2 align-items-center">
+        <button class="btn btn-outline-light" id="btnAbrirCarrito">
+          <i class="bi bi-cart3"></i> <span class="ms-1" id="cartCount">0</span>
+        </button>
+        <div class="dropdown">
+          <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle me-1"></i><span id="userNameShort">Invitado</span>
           </button>
-          <div class="dropdown">
-            <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
-              <i class="bi bi-person-circle me-1"></i><span id="userNameShort">Invitado</span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="registro.html" data-bs-toggle="modal" data-bs-target="#authModal">Ingresar / Registrar</a></li>
-              <li><a class="dropdown-item" href="perfil.html" data-bs-toggle="modal" data-bs-target="#perfilModal">Perfil</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#" id="btnLogout">Cerrar sesión</a></li>
-            </ul>
-          </div>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="acceso.html">Ingresar / Registrar</a></li>
+            <li><a class="dropdown-item" href="perfil.html">Perfil</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" id="btnLogout">Cerrar sesión</a></li>
+          </ul>
         </div>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <!-- Sección Historia -->
   <section id="historia" class="hero py-5 border-bottom border-secondary-subtle">
@@ -107,25 +127,39 @@
       <div class="row g-4">
         <div class="col-md-4">
           <div class="card team-card h-100">
-            <img src="img/equipo1.jpg" alt="integrante1" class="card-img-top">
+            <div class="team-card-img-container">
+            <img src="img/Integrante1.png" alt="integrante1" class="card-img-top">
+            </div>
             <div class="card-body text-center">
-              <h5 class="card-title">Integrante 1</h5>
-              <p class="text-secondary">Lo que hizo o lo que es</p>
+              <h5 class="card-title">Aimon Medina</h5>
+              <p class="text-secondary">Vistas del cliente</p>
             </div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card team-card h-100">
-            <img src="img/equipo3.jpg" alt="Integrante2" class="card-img-top">
-            <div class="card-body text-center">
-              <h5 class="card-title">Integrante 2</h5>
-              <p class="text-secondary">Lo que hizo o lo que es</p>
-            </div>
+        <div class="card team-card h-100">
+          <div class="team-card-img-container">
+            <img src="img/Integrante2.jpg" alt="Integrante2">
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">Diego Alarcon</h5>
+            <p class="text-secondary">Vista Administrador</p>
           </div>
         </div>
       </div>
+
+      </div>
     </div>
   </section>
+
+  <!-- Sidebar Carrito -->
+  <div id="carritoSidebar" class="carrito-sidebar">
+    <div class="carrito-header d-flex justify-content-between align-items-center p-3 border-bottom border-secondary-subtle">
+      <h5>Carrito de compras</h5>
+      <button class="btn btn-close btn-close-white" id="btnCerrarCarrito"></button>
+    </div>
+    <div class="carrito-body p-3" id="carritoSidebarBody"></div>
+  </div>
 
   <!-- Footer -->
   <footer class="py-4 border-top border-secondary-subtle">
@@ -137,6 +171,8 @@
   </footer>
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/stock.js"></script>
+  <script src="js/carrito.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>

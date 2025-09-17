@@ -8,9 +8,27 @@
     "Mouse",
     "Mousepad",
     "Poleras Personalizadas",
-    "Polerones Gamers Personalizados"
+    "Teclados"
   ],
   "productos": [
+    {
+      "id": "KB001",
+      "categoria": "Teclados",
+      "nombre": "Wooting 60HE",
+      "precio": 179990,
+      "rating": 5.0,
+      "descripcion": "El teclado mecánico para gaming definitivo. Con switches magnéticos que permiten una actuación ultra rápida y personalizable, ideal para jugadores competitivos.",
+      "imagen": "img/Wooting60HE.png",
+      "stock" : 5,
+      "detalles": {
+        "Marca": "Wooting",
+        "Switches": "Lekker Switch V2",
+        "Tecnología": "Switches magnéticos (analógicos)",
+        "Actuación ajustable": "0.1mm a 4.0mm",
+        "Rapid Trigger": "Sí",
+        "Conexión": "USB-C"
+      }
+    },
     {
       "id": "JM001",
       "categoria": "Juegos de Mesa",
@@ -19,6 +37,7 @@
       "rating": 4.5,
       "descripcion": "Un clásico juego de estrategia donde los jugadores compiten por colonizar y expandirse en la isla de Catan. Ideal para 3-4 jugadores y perfecto para noches de juego en familia o con amigos.",
       "imagen": "img/catanJuegoMesa.png",
+      "stock" : 23,
       "detalles": {
         "Edad recomendada": "10+ años",
         "Jugadores": "3 - 4",
@@ -35,6 +54,7 @@
       "rating": 4,
       "descripcion": "Un juego de colocación de fichas donde los jugadores construyen el paisaje alrededor de la fortaleza medieval de Carcassonne. Ideal para 2-5 jugadores y fácil de aprender.",
       "imagen": "img/carcassonneJuegoMesa.png",
+      "stock" : 20,
       "detalles": {
         "Edad recomendada": "8+ años",
         "Jugadores": "2 - 5",
@@ -51,6 +71,7 @@
       "rating": 4.5,
       "descripcion": "Ofrece una experiencia de juego cómoda con botones mapeables y una respuesta táctil mejorada. Compatible con consolas Xbox y PC.",
       "imagen": "img/accesorioMandoXbox.png",
+      "stock" : 7,
       "detalles": {
         "Marca": "Microsoft",
         "Compatibilidad": "Xbox Series X|S, Xbox One, Windows 10/11, Android, iOS",
@@ -67,6 +88,7 @@
       "rating": 4.5,
       "descripcion": "Proporcionan un sonido envolvente de calidad con un micrófono desmontable y almohadillas de espuma viscoelástica para mayor comodidad durante largas sesiones de juego.",
       "imagen": "img/AuricularesHyperXCloudII.png",
+      "stock" : 18,
       "detalles": {
         "Marca": "HyperX",
         "Tipo": "Over-ear",
@@ -84,6 +106,7 @@
       "rating": 5,
       "descripcion": "La consola de última generación de Sony, que ofrece gráficos impresionantes y tiempos de carga ultrarrápidos para una experiencia de juego inmersiva.",
       "imagen": "img/playStation5.png",
+      "stock" : 10,
       "detalles": {
         "Marca": "Sony",
         "Almacenamiento": "825 GB SSD",
@@ -101,6 +124,7 @@
       "rating": 5,
       "descripcion": "Un potente equipo diseñado para los gamers más exigentes, equipado con los últimos componentes para ofrecer un rendimiento excepcional en cualquier juego.",
       "imagen": "img/PcAsusROG.png",
+      "stock" : 9,
       "detalles": {
         "Marca": "ASUS",
         "Procesador": "Intel Core i7 12ª Gen",
@@ -118,6 +142,7 @@
       "rating": 4.5,
       "descripcion": "Diseñada para el máximo confort, esta silla ofrece un soporte ergonómico y personalización ajustable para sesiones de juego prolongadas.",
       "imagen": "img/sillaSecretlab.png",
+      "stock" : 14,
       "detalles": {
         "Marca": "Secretlab",
         "Modelo": "Titan Evo",
@@ -136,6 +161,7 @@
       "rating": 4.5,
       "descripcion": "Con sensor de alta precisión y botones personalizables, este mouse es ideal para gamers que buscan un control preciso y personalización.",
       "imagen": "img/MouseLogitech.png",
+      "stock" : 6,
       "detalles": {
         "Marca": "Logitech",
         "Sensor": "HERO 25K",
@@ -153,6 +179,7 @@
       "rating": 4,
       "descripcion": "Ofrece un área de juego amplia con iluminación RGB personalizable, asegurando una superficie suave y uniforme para el movimiento del mouse.",
       "imagen": "img/MousepadRazer.png",
+      "stock" : 1,
       "detalles": {
         "Marca": "Razer",
         "Dimensiones": "294 x 920 x 3 mm",
@@ -170,6 +197,7 @@
       "rating": 4,
       "descripcion": "Una camiseta cómoda y estilizada, con la posibilidad de personalizarla con tu gamer tag o diseño favorito.",
       "imagen": "img/PoleraLevelUP.png",
+      "stock" : 10,
       "detalles": {
         "Material": "Algodón 100%",
         "Tallas": "S, M, L, XL, XXL, XXXL",

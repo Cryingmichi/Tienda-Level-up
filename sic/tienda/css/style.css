@@ -69,28 +69,37 @@ a {
   color: #fff;
 }
 
-/* Style de verificacion (Login y registro) */
-/* Banner estilo presentación */
+/* --- Banner estilo presentación --- */
 .banner-auth {
   display: flex;
   min-height: 100vh;
-  background: var(--bg);
-  color: var(--text);
 }
 
-.banner-left, .banner-right {
+/* Cada lado ocupa 50% en escritorio */
+.banner-left, 
+.banner-right {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 4rem;
+  padding: 2rem;
 }
 
+/* Banner izquierdo */
 .banner-left {
   background: radial-gradient(circle at top left, var(--accent-blue), transparent 70%),
-              linear-gradient(#050505,#000);
+              linear-gradient(#050505, #000);
   font-size: 1.3rem;
   border-right: 1px solid rgba(255,255,255,0.08);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.banner-left img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
 }
 
 .banner-left h1 {
@@ -105,6 +114,7 @@ a {
   color: var(--accent-blue);
 }
 
+/* Banner derecho */
 .banner-right {
   display: flex;
   align-items: center;
@@ -116,6 +126,20 @@ a {
   max-width: 400px;
   padding: 2rem;
   border-radius: 1rem;
+}
+
+/* --- Responsividad --- */
+@media (max-width: 768px) {
+  .banner-auth {
+    flex-direction: column;
+  }
+
+  .banner-left, 
+  .banner-right {
+    width: 100%;
+    border-right: none; /* quitar división en móvil */
+    padding: 1.5rem;
+  }
 }
 
 
@@ -213,6 +237,32 @@ a {
   transform: scale(1.01);
 }
 
+.carrito-sidebar {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 350px;
+  height: 100%;
+  background-color: #111;
+  color: white;
+  z-index: 1050;
+  transition: right 0.3s ease;
+  box-shadow: -3px 0 10px rgba(0,0,0,0.5);
+  overflow-y: auto;
+}
+
+.carrito-sidebar.open {
+  right: 0;
+}
+
+.carrito-header {
+  border-bottom: 1px solid #444;
+}
+
+.carrito-body {
+  padding: 1rem;
+}
+
 /* Asegura que las cards tengan altura uniforme */
 .card {
   background: #0d0d0d;
@@ -256,6 +306,37 @@ a {
     height: 260px;
   }
 }
+
+/* --- Carrito --- */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cart-item img {
+  width: 80px;        /* ancho inicial */
+  height: auto;       /* mantiene proporción */
+  object-fit: cover;  /* ajusta sin deformar */
+  border-radius: 0.5rem;
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-acciones {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.cart-item-acciones button {
+  min-width: 32px;
+}
+
 
 /* Botón compartir personalizado */
 .btn-compartir {
@@ -311,4 +392,3 @@ a {
   box-shadow: 0 0 8px #FF3B3B;
   filter: brightness(1.15);
 }
-

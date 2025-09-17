@@ -21,9 +21,18 @@ if (formRegistro) {
       return;
     }
 
-    // Guardar usuario en localStorage
-    const usuario = { nombre, email, password, esDuoc: email.endsWith("@duoc.cl") };
-    localStorage.setItem("usuario", JSON.stringify(usuario));
+    // Obtener lista de usuarios existentes
+    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    // Verificar si ya existe
+    if (usuarios.some(u => u.email === email)) {
+      alert("Este correo ya está registrado.");
+      return;
+    }
+
+    const nuevoUsuario = { nombre, email, password, esDuoc: email.endsWith("@duoc.cl") };
+    usuarios.push(nuevoUsuario);
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
     alert("Registro exitoso. Ahora puedes iniciar sesión.");
     bootstrap.Modal.getInstance(document.getElementById("modalRegistro")).hide();
@@ -39,13 +48,14 @@ if (formLogin) {
     const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
 
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.email === email && u.password === password);
 
-    if (usuario && usuario.email === email && usuario.password === password) {
-      // Guardar usuario activo antes de redirigir
+    if (usuario) {
+      // Guardar usuario activo (sesión)
       localStorage.setItem("usuario", JSON.stringify(usuario));
       alert(`Bienvenido, ${usuario.nombre}`);
-      window.location.href = "/sic/index.html"; // Cambiar por tu home real
+      window.location.href = "../index.html"; // home
     } else {
       alert("Correo o contraseña incorrectos.");
     }
