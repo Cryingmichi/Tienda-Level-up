@@ -85,7 +85,7 @@ Ser la tienda online líder en productos para gamers en Chile, reconocida por su
 
 ---
 
-## 🗂️ Estructura del Proyecto
+ Estructura del Proyecto
 sic
 |
 |admin
