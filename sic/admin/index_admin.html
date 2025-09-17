@@ -1,11 +1,121 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estadisticas</title>
+  <link rel="stylesheet" href="../assets/css/estilo_admin.css">
+  <!-- Iconos de FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Fuentes Roboto y Orbitron -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="container">
     
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- LOGO SOLO -->
+      <div class="logo">
+        <a href="../index.html">
+          <img src="../assets/imagenes/logo.png" alt="Logo de la empresa">
+        </a>
+      </div>
+
+      <!-- Menú principal -->
+      <nav class="menu">
+        <a href="../admin/index_admin.html" class="active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+        <a href="productos.html"><i class="fa-solid fa-box"></i> Productos</a>
+        <a href="usuarios.html"><i class="fa-solid fa-users"></i> Usuarios</a>
+        <a href="perfil_admin.html"><i class="fa-solid fa-user-gear"></i> configuración del admin</a>
+      </nav>
+
+      <!-- Usuario -->
+      <div class="user-profile">
+        <a href="../admin/index_admin.html">
+          <i class="fa-solid fa-user"></i>
+          <span>Administrador</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main">
+      <header class="header">
+        <h1>¡HOLA Administrador!</h1>
+        <div class="notification-wrapper" style="position: relative; display: inline-block;">
+          <i class="fa-regular fa-bell fa-beat notification-bell"></i>
+
+          <div class="notification-box">
+            <div class="notification-item">nuevos usuarios</div>
+            <div class="notification-item">nuevos productos</div>
+            <div class="notification-item">revisa tu user</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Sección principal del dashboard -->
+      <section class="content">
+
+        <!-- Tarjetas de métricas -->
+        <div class="dashboard-cards">
+          <div class="card">
+            <h3>Total Usuarios</h3>
+            <p id="total-users">1250</p>
+          </div>
+          <div class="card">
+            <h3>Usuarios Activos Hoy</h3>
+            <p id="active-today">340</p>
+          </div>
+          <div class="card">
+            <h3>Usuarios Activos Esta Semana</h3>
+            <p id="active-week">980</p>
+          </div>
+          <div class="card">
+            <h3>Ventas / Transacciones</h3>
+            <p id="sales">452</p>
+          </div>
+          <div class="card">
+            <h3>Productos en Stock</h3>
+            <p id="in-stock">120</p>
+          </div>
+          <div class="card">
+            <h3>Productos Agotados</h3>
+            <p id="out-of-stock">8</p>
+          </div>
+        </div>
+
+        <!-- Actividad reciente -->
+        <div class="recent-activity">
+          <h3>Compras Recientes</h3>
+          <ul>
+            <li>Usuario Juan compró Mando de Xbox one</li>
+            <li>Usuario Ana compró Catan</li>
+            <li>Usuario Pedro compró Carcassonne</li>
+            <li>Usuario Lucia canceló Auriculares Gamer HyperX Cloud II</li>
+            <li>Usuario Carlos compró PlayStation 5 </li>
+          </ul>
+        </div>
+
+      </section>
+    </main>
+  </div>
+  <footer class="footer">
+    <div>
+        <span>© 2025 Level‑Up Gamer</span>
+    </div>
+    <div>
+      
+      <span>Misión: Proveer productos de alta calidad y experiencia personalizada.</span>
+    </div>
+    <div>
+        <span>Visión: Ser líderes con innovación, servicio excepcional y gamificación.</span>
+    </div>
+    
+  </footer>
+  <script src="js/index_admin.js"></script>
 </body>
+
+
+
 </html>

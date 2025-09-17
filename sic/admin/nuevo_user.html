@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuevo Usuario</title>
+  <link rel="stylesheet" href="../assets/css/style_nuevo_producto.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+  <!-- Contenido principal -->
+  <main class="main">
+    <div class="content">
+      <h1 class="titulo text-center">Nuevo Usuario</h1>
+      <div class="form-card">
+        <form id="formNuevoUsuario">
+          <div class="form-group">
+            <label for="runUsuario">RUN</label>
+            <input type="text" id="runUsuario" class="form-control" required pattern="[0-9]{7,8}[0-9Kk]" minlength="7" maxlength="9" placeholder="Ej: 19011022K">
+          </div>
+          <div class="form-group">
+            <label for="nombreUsuario">Nombre</label>
+            <input type="text" id="nombreUsuario" class="form-control" required maxlength="50">
+          </div>
+          <div class="form-group">
+            <label for="apellidoUsuario">Apellido</label>
+            <input type="text" id="apellidoUsuario" class="form-control" required maxlength="100">
+          </div>
+          <div class="form-group">
+            <label for="correoUsuario">Correo</label>
+            <input type="email" id="correoUsuario" class="form-control" required maxlength="100" placeholder="Ej: correo@duoc.cl">
+          </div>
+          <div class="form-group">
+            <label for="fechaNacimiento">Fecha Nacimiento</label>
+            <input type="date" id="fechaNacimiento" class="form-date">
+          </div>
+          <div class="form-group">
+            <label for="tipoUsuario">Tipo Usuario</label>
+            <select id="tipoUsuario" class="form-select" required>
+              <option disabled selected>Seleccionar tipo</option>
+              <option value="Administrador">Administrador</option>
+              <option value="Cliente">Cliente</option>
+              <option value="Vendedor">Vendedor</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="regionUsuario">Región</label>
+            <select id="regionUsuario" class="form-select" required></select>
+          </div>
+          <div class="form-group">
+            <label for="comunaUsuario">Comuna</label>
+            <select id="comunaUsuario" class="form-select" required></select>
+          </div>
+          <div class="form-group">
+            <label for="direccionUsuario">Dirección</label>
+            <input type="text" id="direccionUsuario" class="form-control" required maxlength="300">
+          </div>
+          <div class="form-group">
+            <label for="telefonoUsuario">Teléfono</label>
+            <input type="text" id="telefonoUsuario" class="form-control" required>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">Guardar Usuario</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Footer -->
+  <footer class="footer">
+    <div>
+      <span>© 2025 Level‑Up Gamer</span>
+    </div>
+    <div>
+      <span>Misión: Proveer productos de alta calidad y experiencia personalizada.</span>
+    </div>
+    <div>
+      <span>Visión: Ser líderes con innovación, servicio excepcional y gamificación.</span>
+    </div>
+  </footer>
+
+<script src="js/nuevo_user.js"></script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+{
+  "categorias": [
+    "Juegos de Mesa",
+    "Accesorios",
+    "Consolas",
+    "Computadores Gamers",
+    "Sillas Gamers",
+    "Mouse",
+    "Mousepad",
+    "Poleras Personalizadas",
+    "Teclados"
+  ],
+  "productos": [
+    {
+      "id": "KB001",
+      "categoria": "Teclados",
+      "nombre": "Wooting 60HE",
+      "precio": 179990,
+      "rating": 5.0,
+      "descripcion": "El teclado mecánico para gaming definitivo. Con switches magnéticos que permiten una actuación ultra rápida y personalizable, ideal para jugadores competitivos.",
+      "imagen": "img/Wooting60HE.png",
+      "stock" : 5,
+      "detalles": {
+        "Marca": "Wooting",
+        "Switches": "Lekker Switch V2",
+        "Tecnología": "Switches magnéticos (analógicos)",
+        "Actuación ajustable": "0.1mm a 4.0mm",
+        "Rapid Trigger": "Sí",
+        "Conexión": "USB-C"
+      }
+    },
+    {
+      "id": "JM001",
+      "categoria": "Juegos de Mesa",
+      "nombre": "Catan",
+      "precio": 29990,
+      "rating": 4.5,
+      "descripcion": "Un clásico juego de estrategia donde los jugadores compiten por colonizar y expandirse en la isla de Catan. Ideal para 3-4 jugadores y perfecto para noches de juego en familia o con amigos.",
+      "imagen": "img/catanJuegoMesa.png",
+      "stock" : 23,
+      "detalles": {
+        "Edad recomendada": "10+ años",
+        "Jugadores": "3 - 4",
+        "Tiempo de juego": "60 - 120 min",
+        "Idioma": "Español",
+        "Editorial": "Devir"
+      }
+    },
+    {
+      "id": "JM002",
+      "categoria": "Juegos de Mesa",
+      "nombre": "Carcassonne",
+      "precio": 24990,
+      "rating": 4,
+      "descripcion": "Un juego de colocación de fichas donde los jugadores construyen el paisaje alrededor de la fortaleza medieval de Carcassonne. Ideal para 2-5 jugadores y fácil de aprender.",
+      "imagen": "img/carcassonneJuegoMesa.png",
+      "stock" : 20,
+      "detalles": {
+        "Edad recomendada": "8+ años",
+        "Jugadores": "2 - 5",
+        "Tiempo de juego": "30 - 45 min",
+        "Idioma": "Español",
+        "Editorial": "Devir"
+      }
+    },
+    {
+      "id": "AC001",
+      "categoria": "Accesorios",
+      "nombre": "Control Inalámbrico Xbox Series X",
+      "precio": 59990,
+      "rating": 4.5,
+      "descripcion": "Ofrece una experiencia de juego cómoda con botones mapeables y una respuesta táctil mejorada. Compatible con consolas Xbox y PC.",
+      "imagen": "img/accesorioMandoXbox.png",
+      "stock" : 7,
+      "detalles": {
+        "Marca": "Microsoft",
+        "Compatibilidad": "Xbox Series X|S, Xbox One, Windows 10/11, Android, iOS",
+        "Conexión": "Bluetooth / USB-C",
+        "Batería": "2 pilas AA o batería recargable",
+        "Color": "Negro"
+      }
+    },
+    {
+      "id": "AC002",
+      "categoria": "Accesorios",
+      "nombre": "Auriculares Gamer HyperX Cloud II",
+      "precio": 79990,
+      "rating": 4.5,
+      "descripcion": "Proporcionan un sonido envolvente de calidad con un micrófono desmontable y almohadillas de espuma viscoelástica para mayor comodidad durante largas sesiones de juego.",
+      "imagen": "img/AuricularesHyperXCloudII.png",
+      "stock" : 18,
+      "detalles": {
+        "Marca": "HyperX",
+        "Tipo": "Over-ear",
+        "Conexión": "USB / Jack 3.5mm",
+        "Sonido": "7.1 Surround Virtual",
+        "Micrófono": "Desmontable con cancelación de ruido",
+        "Compatibilidad": "PC, PS4, PS5, Xbox One, Xbox Series, Switch"
+      }
+    },
+    {
+      "id": "CO001",
+      "categoria": "Consolas",
+      "nombre": "PlayStation 5",
+      "precio": 549990,
+      "rating": 5,
+      "descripcion": "La consola de última generación de Sony, que ofrece gráficos impresionantes y tiempos de carga ultrarrápidos para una experiencia de juego inmersiva.",
+      "imagen": "img/playStation5.png",
+      "stock" : 10,
+      "detalles": {
+        "Marca": "Sony",
+        "Almacenamiento": "825 GB SSD",
+        "Resolución": "Hasta 8K",
+        "Frame Rate": "Hasta 120 FPS",
+        "Compatibilidad": "Juegos de PS5 y gran parte del catálogo de PS4",
+        "Conectividad": "Wi-Fi, Bluetooth, HDMI 2.1"
+      }
+    },
+    {
+      "id": "CG001",
+      "categoria": "Computadores Gamers",
+      "nombre": "PC Gamer ASUS ROG Strix",
+      "precio": 1299990,
+      "rating": 5,
+      "descripcion": "Un potente equipo diseñado para los gamers más exigentes, equipado con los últimos componentes para ofrecer un rendimiento excepcional en cualquier juego.",
+      "imagen": "img/PcAsusROG.png",
+      "stock" : 9,
+      "detalles": {
+        "Marca": "ASUS",
+        "Procesador": "Intel Core i7 12ª Gen",
+        "Tarjeta gráfica": "NVIDIA GeForce RTX 3070",
+        "Memoria RAM": "16 GB DDR4",
+        "Almacenamiento": "1 TB SSD",
+        "Sistema operativo": "Windows 11"
+      }
+    },
+    {
+      "id": "SG001",
+      "categoria": "Sillas Gamers",
+      "nombre": "Silla Gamer Secretlab Titan",
+      "precio": 349990,
+      "rating": 4.5,
+      "descripcion": "Diseñada para el máximo confort, esta silla ofrece un soporte ergonómico y personalización ajustable para sesiones de juego prolongadas.",
+      "imagen": "img/sillaSecretlab.png",
+      "stock" : 14,
+      "detalles": {
+        "Marca": "Secretlab",
+        "Modelo": "Titan Evo",
+        "Material": "Cuero sintético PU",
+        "Apoya brazos": "4D",
+        "Respaldo ajustable": "Sí",
+        "Peso soportado": "150 kg",
+        "Dimensiones": "130 x 55 x 56 cm"
+      }
+    },
+    {
+      "id": "MS001",
+      "categoria": "Mouse",
+      "nombre": "Mouse Gamer Logitech G502 HERO",
+      "precio": 49990,
+      "rating": 4.5,
+      "descripcion": "Con sensor de alta precisión y botones personalizables, este mouse es ideal para gamers que buscan un control preciso y personalización.",
+      "imagen": "img/MouseLogitech.png",
+      "stock" : 6,
+      "detalles": {
+        "Marca": "Logitech",
+        "Sensor": "HERO 25K",
+        "DPI": "100 - 25,600",
+        "Botones programables": "11",
+        "Peso ajustable": "Sí",
+        "Conexión": "USB"
+      }
+    },
+    {
+      "id": "MP001",
+      "categoria": "Mousepad",
+      "nombre": "Mousepad Razer Goliathus Extended Chroma",
+      "precio": 29990,
+      "rating": 4,
+      "descripcion": "Ofrece un área de juego amplia con iluminación RGB personalizable, asegurando una superficie suave y uniforme para el movimiento del mouse.",
+      "imagen": "img/MousepadRazer.png",
+      "stock" : 1,
+      "detalles": {
+        "Marca": "Razer",
+        "Dimensiones": "294 x 920 x 3 mm",
+        "Iluminación": "RGB Chroma (16.8 millones de colores)",
+        "Superficie": "Microtexturizada",
+        "Base": "Goma antideslizante",
+        "Conexión": "USB"
+      }
+    },
+    {
+      "id": "PP001",
+      "categoria": "Poleras Personalizadas",
+      "nombre": "Polera Gamer Personalizada 'Level-Up'",
+      "precio": 14990,
+      "rating": 4,
+      "descripcion": "Una camiseta cómoda y estilizada, con la posibilidad de personalizarla con tu gamer tag o diseño favorito.",
+      "imagen": "img/PoleraLevelUP.png",
+      "stock" : 10,
+      "detalles": {
+        "Material": "Algodón 100%",
+        "Tallas": "S, M, L, XL, XXL, XXXL",
+        "Colores disponibles": "Negro, Blanco, Rojo",
+        "Personalización": "Texto o imagen a elección",
+        "Estilo": "Unisex"
+      }
+    }
+  ]
+}

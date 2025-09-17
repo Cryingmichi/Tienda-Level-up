@@ -1,0 +1,255 @@
+/*RESET Y ESTILOS GENERALES*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Contenedor principal: sidebar + main */
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+
+/*SIDEBAR*/
+.sidebar {
+  width: 220px;
+  background: #111;
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.sidebar .logo {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #333;
+}
+
+.sidebar .logo img {
+  width: 60px;
+  height: auto;
+}
+
+/*MENÚ PRINCIPAL*/
+.menu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  overflow-y: auto;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #bbb;
+  text-decoration: none;
+  padding: 12px 20px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.menu a:hover,
+.menu a.active {
+  color: #1E90FF;
+  background: rgba(30, 144, 255, 0.1);
+  border-left: 4px solid #39FF14;
+}
+
+/*PERFIL DE USUARIO*/
+.user-profile {
+  padding: 15px 20px;
+  border-top: 1px solid #333;
+}
+
+.user-profile a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #bbb;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.user-profile a:hover {
+  color: #39FF14;
+}
+
+/*MAIN*/
+.main {
+  flex: 1;
+  margin-left: 220px; /* deja espacio para sidebar en desktop */
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/*HEADER*/
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #333;
+}
+
+.header h1 {
+  font-size: 20px;
+  color: #1E90FF;
+}
+
+.btn-primary {
+  background: #1E90FF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #39FF14;
+  color: #000;
+}
+
+/*Filtros*/
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filter-bar label { color: #ccc; font-size: 14px; }
+
+.filter-bar select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.filter-bar select:hover { border-color: #39FF14; }
+
+/*Tabla de productos*/
+.table-container { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #333;
+  text-align: left;
+  font-size: 14px;
+}
+
+thead { background: #1E90FF; color: #fff; }
+
+tbody tr:nth-child(even) { background: #222; }
+
+tbody tr:hover { background: rgba(57, 255, 20, 0.1); }
+
+.btn-editar, .btn-eliminar {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #000;
+  color: #1E90FF;
+  margin: 0 2px;
+  transition: 0.3s;
+}
+
+.btn-editar:hover, .btn-eliminar:hover { color: #39FF14; }
+
+/*FOOTER*/
+.footer {
+  text-align: center;
+  padding: 15px;
+  background: #111;
+  border-top: 1px solid #333;
+  font-size: 14px;
+  color: #696767;
+  flex-shrink: 0;
+}
+/* Botones de estado */
+.btn-estado {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  background-color: #000; /* fondo negro */
+  cursor: pointer;
+  border: 2px solid;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.btn-estado.activo { border-color: #39FF14; color: #39FF14; }      /* verde neón */
+.btn-estado.inactivo { border-color: #FFD700; color: #FFD700; }    /* amarillo */
+.btn-estado.bloqueado { border-color: #FF4500; color: #FF4500; }   /* rojo */
+
+/* Botones de acción (editar, eliminar, bloquear/desbloquear) */
+.btn-editar, .btn-eliminar, .btn-bloquear {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #000;       /* fondo negro */
+  color: #1E90FF;               /* azul por defecto */
+  margin: 0 2px;
+  transition: 0.3s;
+}
+
+.btn-editar:hover, .btn-eliminar:hover, .btn-bloquear:hover {
+  color: #39FF14; /* efecto verde neón al pasar mouse */
+}
+
+
+/*RESPONSIVE*/
+/* Tablets y móviles medianos */
+@media screen and (max-width: 768px) {
+  .container { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+  }
+  .main { margin-left: 0; padding: 10px; }
+  .filter-bar { flex-direction: column; align-items: flex-start; }
+  table th, table td { font-size: 12px; padding: 8px; }
+  .btn-primary { width: 100%; margin-top: 10px; }
+}
+
+/* Móviles pequeños */
+@media screen and (max-width: 480px) {
+  .header h1 { font-size: 18px; }
+  .btn-primary { padding: 8px 16px; }
+}
