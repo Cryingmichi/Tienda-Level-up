@@ -38,7 +38,7 @@ window.actualizarNavbarUsuario = () => {
       const text = item.textContent.toLowerCase();
       if (text.includes("ingresar") || text.includes("registrar")) {
         item.style.display = "block";
-        item.href = "/sic/tienda/acceso.html"; // ruta absoluta
+        item.href = "/sic/admin/nuevo_user.html"; // ruta absoluta
       }
       if (item.id === "btnLogout") item.style.display = "none";
       if (text.includes("perfil")) item.style.display = "none";
