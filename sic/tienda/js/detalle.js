@@ -174,16 +174,20 @@ window.initFormReseña = () => {
     const nueva = { nombre, email, texto, rating, fecha: new Date() }; // ← Guardar email
     window.reseñas.push(nueva);
 
-    const todasReseñas = JSON.parse(localStorage.getItem("reseñas")) || {};
-    todasReseñas[window.productoDetalle.id] = window.reseñas;
-    localStorage.setItem("reseñas", JSON.stringify(todasReseñas));
-
-    // Limpiar formulario y resetear estrellas
-    document.getElementById("reseñaTexto").value = "";
-    ratingInput.value = 5;
-    rating = 5;
-    estrellasForm.textContent = "★★★★★";
-
-    window.renderReseñas();
+    // === Actualizar nombre en todas las reseñas existentes ===
+  // Actualizar nombre en todas las reseñas del usuario
+  const todasReseñas = JSON.parse(localStorage.getItem("reseñas")) || {};
+  Object.values(todasReseñas).forEach(reseñasArray => {
+    reseñasArray.forEach(r => {
+      if (r.email === usuario.email) r.nombre = usuario.nombre;
+    });
   });
+  localStorage.setItem("reseñas", JSON.stringify(todasReseñas));
+
+  // Actualizar reseñas en detalle de producto si está abierto
+  if (window.productoDetalle) {
+    window.reseñas = todasReseñas[window.productoDetalle.id] || [];
+    window.renderReseñas(); // refresca la vista
+  }
+});
 };

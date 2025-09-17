@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("userEmail").textContent = "";
   }
 
+  // Inicializar formulario de perfil con datos actuales
+  cargarDatosPerfil(usuario);
+
   // Renderizar compras del usuario
   renderCompras(usuario);
 
@@ -21,9 +24,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Renderizar incidencias del usuario
   renderIncidencias(usuario);
+
+  // Agregar sección Gamificación y Referidos
+  if (usuario) inicializarGamificacion(usuario);
 });
 
-// Función para renderizar compras
+// ====================== NUEVO: Gestión de Perfil ======================
+function cargarDatosPerfil(usuario) {
+  if (!usuario) return;
+  document.getElementById("nombrePerfil").value = usuario.nombre || "";
+  document.getElementById("emailPerfil").value = usuario.email || "";
+  document.getElementById("preferenciasPerfil").value = usuario.preferencias || "";
+}
+
+formPerfil.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  if (!usuario) return alert("Debes iniciar sesión para actualizar tu perfil.");
+
+  const emailAntiguo = usuario.email;
+  const nombreAntiguo = usuario.nombre;
+  const nuevoNombre = document.getElementById("nombrePerfil").value.trim();
+  const nuevoEmail = document.getElementById("emailPerfil").value.trim();
+
+  // Actualizar datos del usuario
+  usuario.nombre = nuevoNombre;
+  usuario.email = nuevoEmail;
+  usuario.preferencias = document.getElementById("preferenciasPerfil").value.trim();
+  localStorage.setItem("usuario", JSON.stringify(usuario));
+
+  // === Mover compras al nuevo email ===
+  const comprasUsuarios = JSON.parse(localStorage.getItem("comprasUsuarios")) || {};
+  if (emailAntiguo !== nuevoEmail && comprasUsuarios[emailAntiguo]) {
+    comprasUsuarios[nuevoEmail] = comprasUsuarios[emailAntiguo];
+    delete comprasUsuarios[emailAntiguo];
+    localStorage.setItem("comprasUsuarios", JSON.stringify(comprasUsuarios));
+  }
+
+  // === Mover incidencias al nuevo email ===
+  const mensajesSoporte = JSON.parse(localStorage.getItem("mensajesSoporte")) || {};
+  if (emailAntiguo !== nuevoEmail && mensajesSoporte[emailAntiguo]) {
+    mensajesSoporte[nuevoEmail] = mensajesSoporte[emailAntiguo];
+    delete mensajesSoporte[emailAntiguo];
+    localStorage.setItem("mensajesSoporte", JSON.stringify(mensajesSoporte));
+  }
+
+  // === Mover puntos de gamificación al nuevo email ===
+  const usuariosPuntos = JSON.parse(localStorage.getItem("usuariosPuntos")) || {};
+  if (emailAntiguo !== nuevoEmail && usuariosPuntos[emailAntiguo] !== undefined) {
+    usuariosPuntos[nuevoEmail] = usuariosPuntos[emailAntiguo];
+    delete usuariosPuntos[emailAntiguo];
+    localStorage.setItem("usuariosPuntos", JSON.stringify(usuariosPuntos));
+  }
+
+  // === Actualizar reseñas con nuevo email y nombre ===
+  const todasReseñas = JSON.parse(localStorage.getItem("reseñas")) || {};
+  Object.entries(todasReseñas).forEach(([productoId, reseñasArray]) => {
+    reseñasArray.forEach(r => {
+      if (r.email === emailAntiguo) {
+        r.email = nuevoEmail;
+        r.nombreUsuario = nuevoNombre; // Agregamos propiedad para mostrar nombre en reseña
+      } else if (!r.nombreUsuario) {
+        r.nombreUsuario = r.email; // fallback si no existía
+      }
+    });
+  });
+  localStorage.setItem("reseñas", JSON.stringify(todasReseñas));
+
+  // Actualizar navbar
+  document.getElementById("userName").textContent = `Bienvenido, ${usuario.nombre}`;
+  document.getElementById("userEmail").textContent = usuario.email;
+  const userNameShort = document.getElementById("userNameShort");
+  if (userNameShort) userNameShort.textContent = usuario.nombre;
+
+  perfilMensaje.textContent = "¡Perfil actualizado correctamente!";
+});
+
+
+// ====================== FUNCIONES DE COMPRAS ======================
 function renderCompras(usuario) {
   const productosDiv = document.getElementById("productosComprados");
   const comprasUsuarios = JSON.parse(localStorage.getItem("comprasUsuarios")) || {};
@@ -81,7 +159,7 @@ function renderCompras(usuario) {
   });
 }
 
-// Función para renderizar todas las reseñas del usuario logueado en perfil
+// ====================== FUNCIONES DE RESEÑAS ======================
 function renderMisReseñasPerfil(usuario) {
   if (!usuario) return;
   const contenedor = document.getElementById("misReseñas");
@@ -126,9 +204,9 @@ function renderMisReseñasPerfil(usuario) {
       <img src="${imagenProducto}" alt="${nombreProducto}" class="rounded" style="width:60px;height:60px;object-fit:cover;">
       <div class="flex-grow-1">
         <div class="d-flex justify-content-between align-items-center">
-          <strong>${nombreProducto}</strong>
-          <small class="text-secondary">${fechaFormateada}</small>
-        </div>
+          <strong>${nombreProducto} – ${r.nombreUsuario}</strong>
+            <small class="text-secondary">${fechaFormateada}</small>
+          </div>
         <div class="text-warning">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</div>
         <p class="mb-1">${r.texto}</p>
         <button class="btn btn-sm btn-outline-danger" data-producto="${r.productoId}" data-index="${r.index}">Eliminar reseña</button>
@@ -137,31 +215,27 @@ function renderMisReseñasPerfil(usuario) {
     contenedor.appendChild(div);
   });
 
-  // Agregar evento para eliminar reseña
   contenedor.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("click", () => {
       const prodId = btn.dataset.producto;
       const idx = parseInt(btn.dataset.index);
 
-      // Eliminar del localStorage
       if (todasReseñas[prodId]) {
         todasReseñas[prodId].splice(idx, 1);
         localStorage.setItem("reseñas", JSON.stringify(todasReseñas));
       }
 
-      // Eliminar del detalle de producto si está abierto
       if (window.productoDetalle && window.productoDetalle.id === prodId) {
         window.reseñas.splice(idx, 1);
         window.renderReseñas?.();
       }
 
-      // Refrescar lista del perfil
       renderMisReseñasPerfil(usuario);
     });
   });
 }
 
-// Función para renderizar incidencias del usuario
+// ====================== FUNCIONES DE INCIDENCIAS ======================
 function renderIncidencias(usuario) {
   const incidenciasDiv = document.getElementById("incidenciasUsuario");
   const todasIncidencias = JSON.parse(localStorage.getItem("mensajesSoporte")) || {};
@@ -186,7 +260,6 @@ function renderIncidencias(usuario) {
     `;
     incidenciasDiv.appendChild(li);
 
-    // Botón eliminar incidencia
     li.querySelector("button").addEventListener("click", () => {
       incidenciasUsuario.splice(index, 1);
       todasIncidencias[usuario.email] = incidenciasUsuario;
@@ -196,7 +269,7 @@ function renderIncidencias(usuario) {
   });
 }
 
-// Formulario soporte: guardar por usuario
+// ====================== FORMULARIO SOPORTE ======================
 const formSoporte = document.getElementById('formSoporte');
 const respuesta = document.getElementById('respuesta');
 
@@ -217,6 +290,50 @@ if (formSoporte) {
     respuesta.textContent = "¡Tu mensaje ha sido enviado con éxito!";
     formSoporte.reset();
 
-    if (usuario) renderIncidencias(usuario); // refrescar incidencias si estás logueado
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (usuario) renderIncidencias(usuario);
   });
+}
+
+// ====================== GAMIFICACIÓN ======================
+function inicializarGamificacion(usuario) {
+  let gamificacionDiv = document.getElementById("gamificacionPerfil");
+  if (!gamificacionDiv) {
+    gamificacionDiv = document.createElement("div");
+    gamificacionDiv.className = "profile-section";
+    gamificacionDiv.innerHTML = `
+      <h4>Gamificación y Referidos</h4>
+      <p>Puntos acumulados: <span id="puntosUser">0</span></p>
+      <p>Nivel: <span id="nivelUser">Bronce</span></p>
+      <p>Código de referido: <span id="codigoRef"></span></p>
+    `;
+    document.querySelector("section.container").appendChild(gamificacionDiv);
+  }
+  actualizarGamificacion(usuario);
+}
+
+function sumarPuntosPorCompra(usuarioEmail, monto) {
+  const usuariosPuntos = JSON.parse(localStorage.getItem("usuariosPuntos")) || {};
+  const puntosAGanar = Math.floor(monto / 100);
+  usuariosPuntos[usuarioEmail] = (usuariosPuntos[usuarioEmail] || 0) + puntosAGanar;
+  localStorage.setItem("usuariosPuntos", JSON.stringify(usuariosPuntos));
+}
+
+function calcularNivel(puntos) {
+  if (puntos >= 500) return "Oro";
+  if (puntos >= 200) return "Plata";
+  return "Bronce";
+}
+
+function actualizarGamificacion(usuario) {
+  const usuariosPuntos = JSON.parse(localStorage.getItem("usuariosPuntos")) || {};
+  const puntos = usuariosPuntos[usuario.email] || 0;
+
+  document.getElementById("puntosUser").textContent = puntos;
+  document.getElementById("nivelUser").textContent = calcularNivel(puntos);
+
+  let codigo = usuario.codigoReferido || usuario.email.slice(0,3).toUpperCase() + Math.floor(Math.random()*1000);
+  usuario.codigoReferido = codigo;
+  localStorage.setItem("usuario", JSON.stringify(usuario));
+  document.getElementById("codigoRef").textContent = codigo;
 }
