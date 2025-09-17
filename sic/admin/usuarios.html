@@ -1,105 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Usuarios</title>
-  <link rel="stylesheet" href="../assets/css/style_p_u.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Usuarios - Administrador</title>
+<link rel="stylesheet" href="../assets/css/style_p_u.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- LOGO SOLO -->
-      <div class="logo">
-        <a href="../index.html">
-          <img src="../assets/imagenes/logo.png" alt="Logo de la empresa">
-        </a>
+<div class="container">
+  <aside class="sidebar">
+    <div class="logo"><a href="../index.html"><img src="../assets/imagenes/logo.png" alt="Logo"></a></div>
+    <nav class="menu">
+      <a href="../admin/index_admin.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+      <a href="productos.html"><i class="fa-solid fa-box"></i> Productos</a>
+      <a href="usuarios.html" class="active"><i class="fa-solid fa-users"></i> Usuarios</a>
+      <a href="perfil_admin.html"><i class="fa-solid fa-user-gear"></i> Configuración</a>
+    </nav>
+    <div class="user-profile">
+      <a href="perfil_admin.html"><i class="fa-solid fa-user"></i> <span>Administrador</span></a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="header">
+      <h1>Usuarios</h1>
+      <button class="btn-primary" id="btnCrear">Nuevo Usuario</button>
+    </div>
+
+    <div class="content">
+      <div class="filter-bar">
+        <label for="filter">Filtrar:</label>
+        <select id="filter" class="form-select">
+          <option value="todos">Todos</option>
+          <option value="activo" >Activo</option>
+          <option value="inactivo">Inactivo</option>
+          <option value="bloqueado">Bloqueado</option>
+        </select>
       </div>
-       <!-- Menú principal -->
-      <nav class="menu">
-        <a href="../admin/index_admin.html" ><i class="fa-solid fa-table-columns"></i> Dashboard</a>
-        <a href="productos.html"><i class="fa-solid fa-box"></i> Productos</a>
-        <a href="usuarios.html" class="active"><i class="fa-solid fa-users"></i> Usuarios</a>
-        <a href="perfil_admin.html"><i class="fa-solid fa-user-gear"></i> configuración del admin</a>
-      </nav>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th><th>RUN</th><th>Nombre</th><th>Apellido</th><th>Correo</th><th>Fecha Nac.</th>
+              <th>Tipo Usuario</th><th>Región</th><th>Comuna</th><th>Dirección</th><th>Teléfono</th>
+              <th>Estado</th><th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaUsuarios">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+ <footer class="footer">
+    <div>
+        <span>© 2025 Level‑Up Gamer</span>
+    </div>
+    <div>
       
-      <!-- Usuario -->
-      <div class="user-profile">
-        <a href="perfil_admin.html">
-          <i class="fa-solid fa-user"></i>
-          <span>Administrador</span>
-        </a>
-      </div>
+      <span>Misión: Proveer productos de alta calidad y experiencia personalizada.</span>
     </div>
-
-    <!-- Main -->
-    <div class="main">
-      <div class="header">
-        <h1>Usuarios</h1>
-        <button class="btn-primary">Nuevo Usuario</button>
-      </div>
-
-      <div class="content">
-        <!-- Filtro -->
-        <div class="filter-bar">
-          <label for="filter">Filtrar:</label>
-          <select id="filter">
-            <option>Todos</option>
-            <option>Activos</option>
-            <option>Inactivos</option>
-          </select>
-        </div>
-
-        <!-- Tabla -->
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Estado</th>
-                <th>Rol</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>U001</td>
-                <td>Juan Pérez</td>
-                <td>juan@mail.com</td>
-                <td>Activo</td>
-                <td>Administrador</td>
-              </tr>
-              <tr>
-                <td>U002</td>
-                <td>María López</td>
-                <td>maria@mail.com</td>
-                <td>Inactivo</td>
-                <td>Editor</td>
-              </tr>
-              <tr>
-                <td>U003</td>
-                <td>Carlos Díaz</td>
-                <td>carlos@mail.com</td>
-                <td>Activo</td>
-                <td>Usuario</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Paginación -->
-        <div class="pagination">
-          <a href="#">«</a>
-          <a href="#" class="active">1</a>
-          <a href="#" >2</a>
-          <a href="#">3</a>
-          <a href="#">»</a>
-        </div>
-      </div>
+    <div>
+        <span>Visión: Ser líderes con innovación, servicio excepcional y gamificación.</span>
     </div>
-  </div>
+    
+  </footer>
+
+<script src="js/usuarios.js"></script>
 </body>
 </html>
+

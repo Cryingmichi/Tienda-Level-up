@@ -1,9 +1,8 @@
-/* Reset básico */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
 body {
@@ -47,6 +46,7 @@ body {
   overflow-y: auto;
   padding: 10px 0;
   background: #111;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .menu a {
@@ -71,6 +71,7 @@ body {
 .user-profile {
   padding: 15px 20px;
   border-top: 1px solid #333;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .user-profile a {
@@ -102,6 +103,7 @@ body {
   padding: 20px;
   background: #111;
   border-bottom: 1px solid #333;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .header h1 {
@@ -131,6 +133,7 @@ body {
   padding: 20px;
   flex: 1;
   overflow-y: auto;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* ========== FILTROS ========== */
@@ -212,3 +215,66 @@ tbody tr:hover {
   color: #000;
   font-weight: bold;
 }
+.Roboto{
+ font-family: 'Roboto', sans-serif; /* texto general */
+}
+.Orbiton{
+ font-family: 'Orbitron', sans-serif; /* encabezados */
+}
+/* ========== FOOTER ========== */
+.footer {
+  text-align: center;
+  padding: 15px;
+  background: #111;
+  border-top: 1px solid #333;
+  font-size: 14px;
+  color: #696767;
+  font-family: 'Roboto', sans-serif;
+}
+
+    /* Botones de estado */
+    .btn-estado {
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-weight: 500;
+      background-color: #000; /* fondo negro */
+      cursor: pointer;
+      border: 2px solid;
+      color: #fff;
+      transition: 0.3s;
+    }
+    .btn-estado.activo { border-color: #39FF14; color: #39FF14; }
+    .btn-estado.inactivo { border-color: #FFD700; color: #FFD700; }
+    .btn-estado.bloqueado { border-color: #FF4500; color: #FF4500; }
+
+    /* Botones de acción */
+    .btn-editar, .btn-eliminar, .btn-bloquear {
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background-color: #000;
+      color: #1E90FF;
+      margin: 0 2px;
+      transition: 0.3s;
+    }
+    .btn-editar:hover, .btn-eliminar:hover {
+      color: #39FF14;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table th, table td {
+      padding: 10px;
+      border-bottom: 1px solid #1E90FF;
+      color: #fff;
+      text-align: left;
+    }
+    table th {
+      background-color: #111;
+    }
+    table tbody tr:nth-child(even) {
+      background-color: #000;
+    }

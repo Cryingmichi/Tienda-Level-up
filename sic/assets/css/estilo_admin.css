@@ -1,11 +1,8 @@
-/* =====================
-   RESETEO BÁSICO
-   ===================== */
+
 * {
   margin: 0;              /* Quita los márgenes por defecto de todos los elementos */
   padding: 0;             /* Quita el padding por defecto de todos los elementos */
   box-sizing: border-box; /* Incluye padding y borde dentro del ancho/alto total */
-  font-family: Arial, sans-serif; /* Fuente general de toda la página */
 }
 
 body {
@@ -53,6 +50,7 @@ body {
   padding: 10px 0;         /* Espaciado interno */
   overflow-y: auto;        /* Si el menú es largo, agrega scroll vertical */
   background: #111;        /* Color de fondo (igual al sidebar) */
+  font-family: 'Orbitron', sans-serif;
 }
 
 .menu a {
@@ -82,6 +80,7 @@ body {
   padding: 15px 20px;          /* Espaciado interno */
   border-top: 1px solid #333;  /* Línea separadora arriba del perfil */
   background: #111;            /* Fondo igual que el menú */
+  font-family: 'Orbitron', sans-serif;
 }
 
 .user-profile a {
@@ -115,6 +114,7 @@ body {
   padding: 20px;               /* Espaciado interno */
   background: #111;            /* Fondo gris oscuro */
   border-bottom: 1px solid #333; /* Línea separadora abajo */
+  font-family: 'Orbitron', sans-serif;
 }
 
 .header h1 {
@@ -133,15 +133,16 @@ body {
   color: #39FF14;    /* Verde neón al pasar el mouse */
 }
 
-/* =====================
+/* 
    TARJETAS DEL DASHBOARD
-   ===================== */
+    */
 .dashboard-cards {
   display: grid;                          /* Usamos grid para organizar tarjetas */
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
   /* Se adaptan a la pantalla, mínimo 180px cada tarjeta */
   gap: 20px;                              /* Espacio entre tarjetas */
   margin-bottom: 30px;                    /* Separación inferior */
+  font-family: 'Roboto', sans-serif;
 }
 
 .card {
@@ -153,6 +154,7 @@ body {
   box-shadow: 0 0 5px #000; /* Sombra sutil */
   text-align: center;     /* Texto centrado */
   transition: 0.3s;       /* Animación suave al pasar el mouse */
+  font-family: 'Roboto', sans-serif;
 }
 
 .card:hover {
@@ -184,6 +186,7 @@ body {
   box-shadow: 0 0 5px #000; /* Sombra sutil */
   max-height: 300px;      /* Altura máxima */
   overflow-y: auto;       /* Scroll si hay demasiados ítems */
+  font-family: 'Roboto', sans-serif;
 }
 
 .recent-activity h3 {
@@ -243,4 +246,20 @@ body {
 /* Última notificación sin border */
 .notification-item:last-child {
     border-bottom: none;
+}
+.Roboto{
+ font-family: 'Roboto', sans-serif; /* texto general */
+}
+.Orbiton{
+ font-family: 'Orbitron', sans-serif; /* encabezados */
+}
+/* ========== FOOTER ========== */
+.footer {
+  text-align: center;
+  padding: 15px;
+  background: #111;
+  border-top: 1px solid #333;
+  font-size: 14px;
+  color: #696767;
+  font-family: 'Roboto', sans-serif;
 }
