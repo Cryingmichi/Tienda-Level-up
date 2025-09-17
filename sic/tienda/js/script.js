@@ -38,7 +38,7 @@ window.actualizarNavbarUsuario = () => {
       const text = item.textContent.toLowerCase();
       if (text.includes("ingresar") || text.includes("registrar")) {
         item.style.display = "block";
-        item.href = "../tienda/acceso.html"; // ruta absoluta
+        item.href = "/sic/tienda/acceso.html"; // ruta absoluta
       }
       if (item.id === "btnLogout") item.style.display = "none";
       if (text.includes("perfil")) item.style.display = "none";
@@ -155,26 +155,6 @@ const inicializarBuscador = () => {
     btnAbrirBuscador.addEventListener("click", ()=>{
       contenedorBuscador.classList.toggle("buscador-abierto");
       contenedorBuscador.classList.toggle("buscador-cerrado");
-    });
-  }
-};
-
-// --- LOGIN SIMULADO ---
-const inicializarLoginSimulado = () => {
-  const btnAdmin = document.getElementById("btnAdmin");
-  const btnCliente = document.getElementById("btnCliente");
-
-  if(btnAdmin){
-    btnAdmin.addEventListener("click", ()=>{
-      localStorage.setItem("usuario", JSON.stringify(window.usuario));
-      window.actualizarNavbarUsuario();
-    });
-  }
-
-  if(btnCliente){
-    btnCliente.addEventListener("click", ()=>{
-      localStorage.setItem("usuario", JSON.stringify(window.usuario));
-      window.actualizarNavbarUsuario();
     });
   }
 };
