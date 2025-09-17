@@ -27,7 +27,7 @@ window.actualizarNavbarUsuario = () => {
           window.usuario = null;
           window.actualizarNavbarUsuario();
           alert("Sesión cerrada correctamente.");
-          window.location.href = "../index.html";
+          window.location.href = "./index.html";
         });
       }
     });
@@ -38,7 +38,7 @@ window.actualizarNavbarUsuario = () => {
       const text = item.textContent.toLowerCase();
       if (text.includes("ingresar") || text.includes("registrar")) {
         item.style.display = "block";
-        item.href = "/sic/admin/nuevo_user.html"; // ruta absoluta
+        item.href = "../tienda/acceso.html"; // ruta absoluta
       }
       if (item.id === "btnLogout") item.style.display = "none";
       if (text.includes("perfil")) item.style.display = "none";
@@ -46,8 +46,13 @@ window.actualizarNavbarUsuario = () => {
     if (userNameSpan) userNameSpan.textContent = "Invitado";
     if (btnUnete) btnUnete.style.display = "inline-block";
   }
-};
 
+  // Mostrar botones de login simulado si no hay usuario
+  const loginContainer = document.getElementById("loginSimulado");
+  if(loginContainer){
+    loginContainer.style.display = window.usuario ? "none" : "block";
+  }
+};
 
 // --- RENDERIZAR PRODUCTOS ---
 window.renderizarProductos = (filtro = {q: "", cat: "Todas", min: 0, max: Infinity}) => {
@@ -154,6 +159,26 @@ const inicializarBuscador = () => {
   }
 };
 
+// --- LOGIN SIMULADO ---
+const inicializarLoginSimulado = () => {
+  const btnAdmin = document.getElementById("btnAdmin");
+  const btnCliente = document.getElementById("btnCliente");
+
+  if(btnAdmin){
+    btnAdmin.addEventListener("click", ()=>{
+      localStorage.setItem("usuario", JSON.stringify(window.usuario));
+      window.actualizarNavbarUsuario();
+    });
+  }
+
+  if(btnCliente){
+    btnCliente.addEventListener("click", ()=>{
+      localStorage.setItem("usuario", JSON.stringify(window.usuario));
+      window.actualizarNavbarUsuario();
+    });
+  }
+};
+
 // --- BOOT PRINCIPAL ---
 const boot = async () => {
   try{
@@ -209,5 +234,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
   window.usuario = JSON.parse(localStorage.getItem("usuario")) || null;
   window.actualizarNavbarUsuario();
   boot();
+  inicializarLoginSimulado();
 });
-
