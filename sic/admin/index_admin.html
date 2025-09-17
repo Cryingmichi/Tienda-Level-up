@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Estadisticas</title>
   <link rel="stylesheet" href="../assets/css/estilo_admin.css">
   <!-- Iconos de FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Fuentes Roboto y Orbitron -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
@@ -15,34 +17,24 @@
     <aside class="sidebar">
       <!-- LOGO SOLO -->
       <div class="logo">
-        <a href="index.html">
+        <a href="../index.html">
           <img src="../assets/imagenes/logo.png" alt="Logo de la empresa">
         </a>
       </div>
 
       <!-- Menú principal -->
       <nav class="menu">
-        <a href="../admin/"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
-        <a href="orders.html"><i class="fa-solid fa-box"></i> Orders</a>
-        <a href="inventory.html"><i class="fa-solid fa-warehouse"></i> Inventory</a>
-        <a href="reports.html"><i class="fa-solid fa-chart-line"></i> Reports</a>
-        <a href="employees.html"><i class="fa-solid fa-users"></i> Employees</a>
-        <a href="customers.html"><i class="fa-solid fa-user-group"></i> Customers</a>
-      </nav>
-
-      <!-- Menú inferior -->
-      <nav class="menu bottom">
-        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
-        <a href="profile.html"><i class="fa-solid fa-id-badge"></i> Profile</a>
-        <a href="search.html"><i class="fa-solid fa-magnifying-glass"></i> Search</a>
-        <a href="help.html"><i class="fa-solid fa-circle-question"></i> Help</a>
+        <a href="../admin/index_admin.html" class="active"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+        <a href="productos.html"><i class="fa-solid fa-box"></i> Productos</a>
+        <a href="usuarios.html"><i class="fa-solid fa-users"></i> Usuarios</a>
+        <a href="perfil_admin.html"><i class="fa-solid fa-user-gear"></i> configuración del admin</a>
       </nav>
 
       <!-- Usuario -->
       <div class="user-profile">
-        <a href="profile.html">
+        <a href="../admin/index_admin.html">
           <i class="fa-solid fa-user"></i>
-          <span>Profile</span>
+          <span>Administrador</span>
         </a>
       </div>
     </aside>
@@ -51,7 +43,15 @@
     <main class="main">
       <header class="header">
         <h1>¡HOLA Administrador!</h1>
-        <i class="fa-regular fa-bell"></i>
+        <div class="notification-wrapper" style="position: relative; display: inline-block;">
+          <i class="fa-regular fa-bell fa-beat notification-bell"></i>
+
+          <div class="notification-box">
+            <div class="notification-item">nuevos usuarios</div>
+            <div class="notification-item">nuevos productos</div>
+            <div class="notification-item">revisa tu user</div>
+          </div>
+        </div>
       </header>
 
       <!-- Sección principal del dashboard -->
@@ -100,5 +100,22 @@
       </section>
     </main>
   </div>
+  <footer class="footer">
+    <div>
+        <span>© 2025 Level‑Up Gamer</span>
+    </div>
+    <div>
+      
+      <span>Misión: Proveer productos de alta calidad y experiencia personalizada.</span>
+    </div>
+    <div>
+        <span>Visión: Ser líderes con innovación, servicio excepcional y gamificación.</span>
+    </div>
+    
+  </footer>
+  <script src="js/index_admin.js"></script>
 </body>
+
+
+
 </html>

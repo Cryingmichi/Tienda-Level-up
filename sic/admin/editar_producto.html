@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Producto</title>
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="../assets/css/style_nuevo_producto.css">
+
+  <!-- Iconos FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Fuentes Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">  
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <a href="../index.html"><img src="../assets/imagenes/logo.png" alt="Logo de la empresa"></a>
+      </div>
+      <nav class="menu">
+        <a href="index_admin.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
+        <a href="productos.html" class="active"><i class="fa-solid fa-box"></i> Productos</a>
+        <a href="usuarios.html"><i class="fa-solid fa-users"></i> Usuarios</a>
+        <a href="perfil_admin.html"><i class="fa-solid fa-user-gear"></i> Configuración</a>
+      </nav>
+      <div class="user-profile">
+        <a href="perfil_admin.html"><i class="fa-solid fa-user"></i><span>Administrador</span></a>
+      </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <main class="main">
+      <div class="content">
+        <h1 class="titulo text-center">Editar Producto</h1>
+        <div class="form-card">
+          <form id="formProducto">
+            <div class="form-group">
+              <label for="idProducto">Código Producto</label>
+              <input type="text" class="form-control" id="idProducto" placeholder="Ej: P001" required minlength="3">
+            </div>
+            <div class="form-group">
+              <label for="nombreProducto">Nombre</label>
+              <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre producto" required maxlength="100">
+            </div>
+            <div class="form-group">
+              <label for="descripcionProducto">Descripción</label>
+              <textarea id="descripcionProducto" class="form-control" placeholder="Descripción (opcional)" maxlength="500"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="precioProducto">Precio (CLP)</label>
+              <input type="number" id="precioProducto" class="form-control" placeholder="Ej: 15000" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="stockProducto">Stock</label>
+              <input type="number" id="stockProducto" class="form-control" placeholder="Cantidad en inventario" min="0" step="1" required>
+            </div>
+            <div class="form-group">
+              <label for="stockCritico">Stock Crítico</label>
+              <input type="number" id="stockCritico" class="form-control" placeholder="Alerta mínimo" min="0" step="1">
+            </div>
+            <div class="form-group">
+              <label for="categoriaProducto">Categoría</label>
+              <select id="categoriaProducto" class="form-select" required>
+                <option disabled>Seleccionar categoría</option>
+                <option value="JuegosdeMesa">Juegos de Mesa</option>
+                <option value="Accesorios">Accesorios</option>
+                <option value="Consolas">Consolas</option>
+                <option value="ComputadoresGamers">Computadores Gamers</option>
+                <option value="SillasGamers">Sillas Gamers</option>
+                <option value="Mouse">Mouse</option>
+                <option value="Mousepad">Mousepad</option>
+                <option value="PolerasPersonalizadas">Poleras Personalizadas</option>
+                <option value="PoleronesGamersPersonalizados">Polerones Gamers Personalizados</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="imagenProducto">Imagen</label>
+              <input type="file" id="imagenProducto" accept="image/*">
+              <img id="imagenPreview" src="" alt="Imagen actual" style="margin-top:10px; max-width:150px;">
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-submit">Actualizar Producto</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div><span>© 2025 Level‑Up Gamer</span></div>
+    <div><span>Misión: Proveer productos de alta calidad y experiencia personalizada.</span></div>
+    <div><span>Visión: Ser líderes con innovación, servicio excepcional y gamificación.</span></div>
+  </footer>
+
+  <!-- JS -->
+  <script src="js/editar_producto.js"></script>
+</body>
+</html>
