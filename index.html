@@ -3,102 +3,174 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Level-Up Gamer · Acceso</title>
-
+  <title>Level‑Up · Inicio</title>
+  
   <!-- Bootstrap & Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="img/logo.png" type="image/png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="sic/tienda/css/style.css">
+  <link rel="icon" href="sic/tienda/img/logo.png" type="imagen-png">
 </head>
 <body>
 
-  <section class="banner-auth">
-  <!-- IZQUIERDA (Banner) -->
-  <div class="banner-left d-flex flex-column justify-content-center align-items-center text-center">
-    <!-- Logo de la tienda -->
-    <img src="img/logo.png" alt="Logo Level-Up Gamer" class="mb-4" style="max-width:500px;">
-
-    <h1 class="neon">Sube de nivel tu setup</h1>
-    <p>
-      Consolas, PC, periféricos y más.<br>
-      Gana puntos LevelUp por compras y referidos.<br><br>
-      <span class="duoc-msg">Usuarios <strong>@duoc.cl</strong> obtienen 
-      <span class="accent">20% de descuento de por vida</span>.</span>
-    </p>
-  </div>
-
-    <!-- DERECHA (Acceso) -->
-    <div class="banner-right">
-      <div class="auth-box dark-card">
-        <h2 class="mb-4"><i class="bi bi-person-circle me-2"></i>Bienvenido</h2>
-        <button class="btn btn-accent w-100 mb-3" data-bs-toggle="modal" data-bs-target="#modalRegistro">
-          <i class="bi bi-person-plus-fill me-2"></i>Crear cuenta
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg border-bottom border-secondary-subtle sticky-top" style="background:#05050580;backdrop-filter: blur(8px);">
+  <div class="container">
+    <a class="navbar-brand brand neon active" href="#"><i class="bi bi-joystick me-2"></i>Level‑Up Gamer</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="nav" class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="sic/tienda/productos.html">Productos</a></li>
+        <li class="nav-item"><a class="nav-link" href="sic/tienda/blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="sic/tienda/eventos.html">Eventos</a></li>
+        <li class="nav-item"><a class="nav-link" href="sic/tienda/soporte.html">Soporte</a></li>
+        <li class="nav-item"><a class="nav-link" href="sic/tienda/nosotros.html">Nosotros</a></li>
+      </ul>
+      <div class="d-flex gap-2 align-items-center">
+        <button class="btn btn-outline-light" id="btnAbrirCarrito">
+          <i class="bi bi-cart3"></i> <span class="ms-1" id="cartCount">0</span>
         </button>
-        <button class="btn btn-outline-light w-100" data-bs-toggle="modal" data-bs-target="#modalLogin">
-          <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar sesión
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Modal Registro -->
-  <div class="modal fade" id="modalRegistro" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content dark-card">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="bi bi-person-plus-fill me-2"></i>Creación de cuenta</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        <div class="dropdown">
+          <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle me-1"></i><span id="userNameShort">Invitado</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="sic/admin/nuevo_user.html">Ingresar / Registrar</a></li>
+            <li><a class="dropdown-item" href="sic/tienda/perfil.html">Perfil</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" id="btnLogout">Cerrar sesión</a></li>
+          </ul>
         </div>
-        <div class="modal-body">
-          <form id="formRegistro">
-            <input type="text" id="regNombre" class="form-control dark-input mb-3" placeholder="Nombre completo" required>
 
-            <input type="email" id="regEmail" class="form-control dark-input mb-1" placeholder="Correo electrónico" required>
-            <!-- Mensaje debajo del correo -->
-            <small class="form-text text-info mb-3">
-              <i class="bi bi-gift-fill me-1"></i>
-              Si usas un correo <strong>@duoc.cl</strong> obtienes un 
-              <span class="accent">20% de descuento de por vida</span>.
-            </small>
-
-            <input type="password" id="regPassword" class="form-control dark-input mb-3" placeholder="Contraseña" required>
-
-            <label class="mb-2"><i class="bi bi-calendar-event me-2"></i>Fecha de nacimiento</label>
-            <input type="date" id="regFecha" class="form-control dark-input mb-3" required>
-
-            <button type="submit" class="btn btn-accent w-100">
-              <i class="bi bi-check-circle-fill me-2"></i>Registrarme
-            </button>
-          </form>
+        <!-- LOGIN SIMULADO -->
+        <div id="loginSimulado" class="d-flex gap-2">
+          <button id="btnAdmin" class="btn btn-primary" onclick="window.location.href='sic/admin/nuevo_user.html'">Ingresar como Admin</button>
+          <button id="btnCliente" class="btn btn-success" onclick="window.location.href='sic/tienda/acceso.html'">Ingresar como Cliente</button>
         </div>
       </div>
     </div>
   </div>
+</nav>
 
-
-  <!-- Modal Login -->
-  <div class="modal fade" id="modalLogin" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content dark-card">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="bi bi-box-arrow-in-right me-2"></i>Inicio de sesión</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <form id="formLogin">
-            <input type="email" id="loginEmail" class="form-control dark-input mb-3" placeholder="Correo electrónico" required>
-            <input type="password" id="loginPassword" class="form-control dark-input mb-3" placeholder="Contraseña" required>
-            <button type="submit" class="btn btn-accent w-100">
-              <i class="bi bi-door-open-fill me-2"></i>Entrar
-            </button>
-          </form>
+<!-- Hero -->
+<header id="home" class="hero py-5 border-bottom border-secondary-subtle">
+  <div class="container py-4">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <h1 class="display-5 section-title">Sube de nivel tu setup</h1>
+        <p class="lead text-secondary">
+          Consolas, PC, periféricos y más. Gana 
+          <span class="badge badge-neon">puntos LevelUp</span> por compras y referidos.
+        </p>
+        <div class="d-flex gap-2 flex-wrap">
+          <a href="sic/tienda/productos.html" class="btn btn-accent"><i class="bi bi-lightning-charge me-1"></i> Explorar Productos</a>
+          <a href="sic/tienda/acceso.html" class="btn btn-outline-light">
+            <i class="bi bi-stars me-1"></i> Únete
+          </a>
         </div>
       </div>
     </div>
   </div>
+</header>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/auth.js"></script>
+<!-- Sección de Cards -->
+<section id="productos-destacados" class="py-5">
+  <div class="container">
+    <h2 class="section-title mb-4">Productos Destacados</h2>
+    <div class="row g-4">
+
+      <!-- Card 1 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-img-container">
+            <img src="sic/tienda/img/Wooting60HE.png" alt="Producto 1">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-neon mb-2">Top</span>
+            <h5 class="card-title">Teclado Wooting 60HE</h5>
+            <p class="card-text text-secondary">
+              Teclado mecánico para gaming con switches magnéticos y tecnología Rapid Trigger.
+            </p>
+            <a href="sic/tienda/productos.html" class="btn btn-accent w-100">
+              <i class="bi bi-cart3 me-1"></i> Comprar
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-img-container">
+            <img src="sic/tienda/img/AuricularesHyperXCloudII.png" alt="Producto 2">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-neon mb-2">Nuevo</span>
+            <h5 class="card-title">Auriculares HyperX Cloud II</h5>
+            <p class="card-text text-secondary">
+              Sonido envolvente 7.1, micrófono retráctil y comodidad total para horas de juego.
+            </p>
+            <a href="sic/tienda/productos.html" class="btn btn-accent w-100">
+              <i class="bi bi-cart3 me-1"></i> Comprar
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-img-container">
+            <img src="sic/tienda/img/MouseLogitech.png" alt="Producto 3">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-neon mb-2">Mayor vendido</span>
+            <h5 class="card-title">Mouse Logitech</h5>
+            <p class="card-text text-secondary">
+              Sensor óptico de alta precisión, iluminación RGB personalizable y diseño ergonómico.
+            </p>
+            <a href="sic/tienda/productos.html" class="btn btn-accent w-100">
+              <i class="bi bi-cart3 me-1"></i> Comprar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="carritoSidebar" class="carrito-sidebar">
+  <div class="carrito-header d-flex justify-content-between align-items-center p-3 border-bottom border-secondary-subtle">
+    <h5>Carrito de compras</h5>
+    <button class="btn btn-close btn-close-white" id="btnCerrarCarrito"></button>
+  </div>
+  <div class="carrito-body p-3" id="carritoSidebarBody"></div>
+</div>
+
+<!-- Footer -->
+<footer class="py-4 border-top border-secondary-subtle">
+  <div class="container small text-secondary d-flex flex-wrap gap-3 justify-content-between">
+    <span>© <span id="year"></span> Level‑Up Gamer</span>
+    <span>Misión: Proveer productos de alta calidad y experiencia personalizada.</span>
+    <span>Visión: Ser líderes con innovación, servicio excepcional y gamificación.</span>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="sic/tienda/js/auth.js"></script>
+<script src="sic/tienda/js/stock.js"></script> 
+<script src="sic/tienda/js/carrito.js"></script>
+<script src="sic/tienda/js/script.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const btnCarrito = document.getElementById("btnAbrirCarrito");
+    if (btnCarrito) {
+      btnCarrito.style.display = "none";
+    }
+  });
+</script>
 </body>
 </html>
