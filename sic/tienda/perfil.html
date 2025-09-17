@@ -75,6 +75,27 @@
     <p id="userEmail" class="text-secondary"></p>
   </div>
 
+  <!-- Gestión de Perfil -->
+  <div class="profile-section">
+    <h4>Gestión de Perfil</h4>
+    <form id="formPerfil" class="mb-3">
+      <div class="mb-3">
+        <label for="nombrePerfil" class="form-label">Nombre</label>
+        <input type="text" id="nombrePerfil" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="emailPerfil" class="form-label">Email</label>
+        <input type="email" id="emailPerfil" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="preferenciasPerfil" class="form-label">Preferencias de compra</label>
+        <input type="text" id="preferenciasPerfil" class="form-control" placeholder="Ej: PC, Accesorios, Sillas">
+      </div>
+      <button type="submit" class="btn btn-success">Guardar cambios</button>
+    </form>
+    <div id="perfilMensaje" class="text-success"></div>
+  </div>
+
   <!-- Productos comprados -->
   <div class="profile-section">
     <h4>Productos Comprados</h4>
@@ -91,6 +112,11 @@
   <div class="profile-section">
     <h4>Solicitudes de Soporte</h4>
     <div id="incidenciasUsuario" class="list-group"></div>
+  </div>
+
+  <!-- Gamificación y Referidos -->
+  <div class="profile-section" id="gamificacionPerfil">
+    <!-- Se llena dinámicamente desde JS -->
   </div>
 </section>
 
