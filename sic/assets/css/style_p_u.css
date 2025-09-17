@@ -1,4 +1,4 @@
-
+/*RESET Y ESTILOS GENERALES*/
 * {
   margin: 0;
   padding: 0;
@@ -6,47 +6,53 @@
 }
 
 body {
-  background: #000; /* Fondo negro moderno */
+  background: #000;
   color: #fff;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* Layout principal */
+/* Contenedor principal: sidebar + main */
 .container {
   display: flex;
-  height: 100vh;
+  flex: 1;
+  flex-direction: row;
 }
 
-/* ========== SIDEBAR ========== */
+/*SIDEBAR*/
 .sidebar {
   width: 220px;
-  background: #111; /* gris oscuro */
+  background: #111;
   border-right: 1px solid #333;
   display: flex;
   flex-direction: column;
   height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
 }
 
-.logo {
+.sidebar .logo {
   text-align: center;
   padding: 20px;
   border-bottom: 1px solid #333;
 }
 
-.logo img {
+.sidebar .logo img {
   width: 60px;
   height: auto;
 }
 
-/* Menú de navegación */
+/*MENÚ PRINCIPAL*/
 .menu {
-  flex: 1; /* se expande para ocupar el espacio disponible */
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  overflow-y: auto;
   padding: 10px 0;
-  background: #111;
-  font-family: 'Orbitron', sans-serif;
+  overflow-y: auto;
 }
 
 .menu a {
@@ -62,16 +68,15 @@ body {
 
 .menu a:hover,
 .menu a.active {
-  color: #1E90FF; /* azul eléctrico */
+  color: #1E90FF;
   background: rgba(30, 144, 255, 0.1);
-  border-left: 4px solid #39FF14; /* verde neón */
+  border-left: 4px solid #39FF14;
 }
 
-/* Perfil de usuario abajo */
+/*PERFIL DE USUARIO*/
 .user-profile {
   padding: 15px 20px;
   border-top: 1px solid #333;
-  font-family: 'Orbitron', sans-serif;
 }
 
 .user-profile a {
@@ -84,36 +89,36 @@ body {
 }
 
 .user-profile a:hover {
-  color: #39FF14; /* verde neón */
+  color: #39FF14;
 }
 
-/* ========== CONTENIDO PRINCIPAL ========== */
+/*MAIN*/
 .main {
   flex: 1;
+  margin-left: 220px; /* deja espacio para sidebar en desktop */
   display: flex;
   flex-direction: column;
   background: #000;
+  min-height: 100vh;
+  padding: 20px;
 }
 
-/* Header con título y botón */
+/*HEADER*/
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  background: #111;
+  padding: 20px 0;
   border-bottom: 1px solid #333;
-  font-family: 'Orbitron', sans-serif;
 }
 
 .header h1 {
   font-size: 20px;
-  color: #1E90FF; /* azul eléctrico */
+  color: #1E90FF;
 }
 
-/* Botón principal (Nuevo Producto / Nuevo Usuario) */
 .btn-primary {
-  background: #1E90FF; /* azul eléctrico */
+  background: #1E90FF;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -124,19 +129,11 @@ body {
 }
 
 .btn-primary:hover {
-  background: #39FF14; /* verde neón */
+  background: #39FF14;
   color: #000;
 }
 
-/* Contenido general */
-.content {
-  padding: 20px;
-  flex: 1;
-  overflow-y: auto;
-  font-family: 'Roboto', sans-serif;
-}
-
-/* ========== FILTROS ========== */
+/*Filtros*/
 .filter-bar {
   display: flex;
   align-items: center;
@@ -144,10 +141,7 @@ body {
   margin-bottom: 15px;
 }
 
-.filter-bar label {
-  color: #ccc;
-  font-size: 14px;
-}
+.filter-bar label { color: #ccc; font-size: 14px; }
 
 .filter-bar select {
   padding: 6px 10px;
@@ -158,24 +152,15 @@ body {
   transition: 0.3s;
 }
 
-.filter-bar select:hover {
-  border-color: #39FF14;
-}
+.filter-bar select:hover { border-color: #39FF14; }
 
-/* ========== TABLA ========== */
-.table-container {
-  overflow-x: auto; /* scroll horizontal si es muy ancha */
-}
+/*Tabla de productos*/
+.table-container { overflow-x: auto; }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 15px;
-}
-
-thead {
-  background: #1E90FF; /* encabezado azul */
-  color: #fff;
 }
 
 th, td {
@@ -185,43 +170,26 @@ th, td {
   font-size: 14px;
 }
 
-tbody tr:nth-child(even) {
-  background: #222; /* filas alternadas gris */
-}
+thead { background: #1E90FF; color: #fff; }
 
-tbody tr:hover {
-  background: rgba(57, 255, 20, 0.1); /* efecto verde neón */
-}
+tbody tr:nth-child(even) { background: #222; }
 
-/* ========== PAGINACIÓN ========== */
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-}
+tbody tr:hover { background: rgba(57, 255, 20, 0.1); }
 
-.pagination a {
-  padding: 8px 12px;
-  border: 1px solid #333;
+.btn-editar, .btn-eliminar {
+  padding: 5px 10px;
   border-radius: 6px;
-  text-decoration: none;
-  color: #bbb;
+  border: none;
+  cursor: pointer;
+  background-color: #000;
+  color: #1E90FF;
+  margin: 0 2px;
   transition: 0.3s;
 }
 
-.pagination a:hover,
-.pagination a.active {
-  background: #39FF14;
-  color: #000;
-  font-weight: bold;
-}
-.Roboto{
- font-family: 'Roboto', sans-serif; /* texto general */
-}
-.Orbiton{
- font-family: 'Orbitron', sans-serif; /* encabezados */
-}
-/* ========== FOOTER ========== */
+.btn-editar:hover, .btn-eliminar:hover { color: #39FF14; }
+
+/*FOOTER*/
 .footer {
   text-align: center;
   padding: 15px;
@@ -229,52 +197,59 @@ tbody tr:hover {
   border-top: 1px solid #333;
   font-size: 14px;
   color: #696767;
-  font-family: 'Roboto', sans-serif;
+  flex-shrink: 0;
+}
+/* Botones de estado */
+.btn-estado {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  background-color: #000; /* fondo negro */
+  cursor: pointer;
+  border: 2px solid;
+  color: #fff;
+  transition: 0.3s;
 }
 
-    /* Botones de estado */
-    .btn-estado {
-      padding: 5px 12px;
-      border-radius: 6px;
-      font-weight: 500;
-      background-color: #000; /* fondo negro */
-      cursor: pointer;
-      border: 2px solid;
-      color: #fff;
-      transition: 0.3s;
-    }
-    .btn-estado.activo { border-color: #39FF14; color: #39FF14; }
-    .btn-estado.inactivo { border-color: #FFD700; color: #FFD700; }
-    .btn-estado.bloqueado { border-color: #FF4500; color: #FF4500; }
+.btn-estado.activo { border-color: #39FF14; color: #39FF14; }      /* verde neón */
+.btn-estado.inactivo { border-color: #FFD700; color: #FFD700; }    /* amarillo */
+.btn-estado.bloqueado { border-color: #FF4500; color: #FF4500; }   /* rojo */
 
-    /* Botones de acción */
-    .btn-editar, .btn-eliminar, .btn-bloquear {
-      padding: 5px 10px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      background-color: #000;
-      color: #1E90FF;
-      margin: 0 2px;
-      transition: 0.3s;
-    }
-    .btn-editar:hover, .btn-eliminar:hover {
-      color: #39FF14;
-    }
+/* Botones de acción (editar, eliminar, bloquear/desbloquear) */
+.btn-editar, .btn-eliminar, .btn-bloquear {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #000;       /* fondo negro */
+  color: #1E90FF;               /* azul por defecto */
+  margin: 0 2px;
+  transition: 0.3s;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    table th, table td {
-      padding: 10px;
-      border-bottom: 1px solid #1E90FF;
-      color: #fff;
-      text-align: left;
-    }
-    table th {
-      background-color: #111;
-    }
-    table tbody tr:nth-child(even) {
-      background-color: #000;
-    }
+.btn-editar:hover, .btn-eliminar:hover, .btn-bloquear:hover {
+  color: #39FF14; /* efecto verde neón al pasar mouse */
+}
+
+
+/*RESPONSIVE*/
+/* Tablets y móviles medianos */
+@media screen and (max-width: 768px) {
+  .container { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+  }
+  .main { margin-left: 0; padding: 10px; }
+  .filter-bar { flex-direction: column; align-items: flex-start; }
+  table th, table td { font-size: 12px; padding: 8px; }
+  .btn-primary { width: 100%; margin-top: 10px; }
+}
+
+/* Móviles pequeños */
+@media screen and (max-width: 480px) {
+  .header h1 { font-size: 18px; }
+  .btn-primary { padding: 8px 16px; }
+}
