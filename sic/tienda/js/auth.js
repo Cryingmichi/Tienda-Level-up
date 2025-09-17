@@ -55,7 +55,7 @@ if (formLogin) {
       // Guardar usuario activo (sesión)
       localStorage.setItem("usuario", JSON.stringify(usuario));
       alert(`Bienvenido, ${usuario.nombre}`);
-      window.location.href = "../index.html"; // home
+      window.location.href = "../../index.html"; // home
     } else {
       alert("Correo o contraseña incorrectos.");
     }
