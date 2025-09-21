@@ -18,7 +18,7 @@ window.actualizarNavbarUsuario = () => {
       }
       if (text.includes("perfil")) {
         item.style.display = "block";
-        item.href = "../sic/tienda/perfil.html"; // ruta absoluta
+        item.href = "/sic/tienda/perfil.html"; // ruta absoluta
       }
       if (item.id === "btnLogout") {
         item.style.display = "block";
@@ -27,7 +27,7 @@ window.actualizarNavbarUsuario = () => {
           window.usuario = null;
           window.actualizarNavbarUsuario();
           alert("Sesión cerrada correctamente.");
-          window.location.href = "./index.html";
+          window.location.href = "/index.html";
         });
       }
     });
@@ -38,7 +38,7 @@ window.actualizarNavbarUsuario = () => {
       const text = item.textContent.toLowerCase();
       if (text.includes("ingresar") || text.includes("registrar")) {
         item.style.display = "block";
-        item.href = "../sic/tienda/acceso.html"; // ruta absoluta
+        item.href = "sic/tienda/acceso.html"; // ruta absoluta
       }
       if (item.id === "btnLogout") item.style.display = "none";
       if (text.includes("perfil")) item.style.display = "none";

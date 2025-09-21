@@ -13,9 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("userEmail").textContent = "";
   }
 
-  // Inicializar formulario de perfil con datos actuales
-  cargarDatosPerfil(usuario);
-
   // Renderizar compras del usuario
   renderCompras(usuario);
 
@@ -29,79 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (usuario) inicializarGamificacion(usuario);
 });
 
-// ====================== NUEVO: Gestión de Perfil ======================
-function cargarDatosPerfil(usuario) {
-  if (!usuario) return;
-  document.getElementById("nombrePerfil").value = usuario.nombre || "";
-  document.getElementById("emailPerfil").value = usuario.email || "";
-  document.getElementById("preferenciasPerfil").value = usuario.preferencias || "";
-}
-
-formPerfil.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
-  if (!usuario) return alert("Debes iniciar sesión para actualizar tu perfil.");
-
-  const emailAntiguo = usuario.email;
-  const nombreAntiguo = usuario.nombre;
-  const nuevoNombre = document.getElementById("nombrePerfil").value.trim();
-  const nuevoEmail = document.getElementById("emailPerfil").value.trim();
-
-  // Actualizar datos del usuario
-  usuario.nombre = nuevoNombre;
-  usuario.email = nuevoEmail;
-  usuario.preferencias = document.getElementById("preferenciasPerfil").value.trim();
-  localStorage.setItem("usuario", JSON.stringify(usuario));
-
-  // === Mover compras al nuevo email ===
-  const comprasUsuarios = JSON.parse(localStorage.getItem("comprasUsuarios")) || {};
-  if (emailAntiguo !== nuevoEmail && comprasUsuarios[emailAntiguo]) {
-    comprasUsuarios[nuevoEmail] = comprasUsuarios[emailAntiguo];
-    delete comprasUsuarios[emailAntiguo];
-    localStorage.setItem("comprasUsuarios", JSON.stringify(comprasUsuarios));
-  }
-
-  // === Mover incidencias al nuevo email ===
-  const mensajesSoporte = JSON.parse(localStorage.getItem("mensajesSoporte")) || {};
-  if (emailAntiguo !== nuevoEmail && mensajesSoporte[emailAntiguo]) {
-    mensajesSoporte[nuevoEmail] = mensajesSoporte[emailAntiguo];
-    delete mensajesSoporte[emailAntiguo];
-    localStorage.setItem("mensajesSoporte", JSON.stringify(mensajesSoporte));
-  }
-
-  // === Mover puntos de gamificación al nuevo email ===
-  const usuariosPuntos = JSON.parse(localStorage.getItem("usuariosPuntos")) || {};
-  if (emailAntiguo !== nuevoEmail && usuariosPuntos[emailAntiguo] !== undefined) {
-    usuariosPuntos[nuevoEmail] = usuariosPuntos[emailAntiguo];
-    delete usuariosPuntos[emailAntiguo];
-    localStorage.setItem("usuariosPuntos", JSON.stringify(usuariosPuntos));
-  }
-
-  // === Actualizar reseñas con nuevo email y nombre ===
-  const todasReseñas = JSON.parse(localStorage.getItem("reseñas")) || {};
-  Object.entries(todasReseñas).forEach(([productoId, reseñasArray]) => {
-    reseñasArray.forEach(r => {
-      if (r.email === emailAntiguo) {
-        r.email = nuevoEmail;
-        r.nombreUsuario = nuevoNombre; // Agregamos propiedad para mostrar nombre en reseña
-      } else if (!r.nombreUsuario) {
-        r.nombreUsuario = r.email; // fallback si no existía
-      }
-    });
-  });
-  localStorage.setItem("reseñas", JSON.stringify(todasReseñas));
-
-  // Actualizar navbar
-  document.getElementById("userName").textContent = `Bienvenido, ${usuario.nombre}`;
-  document.getElementById("userEmail").textContent = usuario.email;
-  const userNameShort = document.getElementById("userNameShort");
-  if (userNameShort) userNameShort.textContent = usuario.nombre;
-
-  perfilMensaje.textContent = "¡Perfil actualizado correctamente!";
-});
-
-
-// ====================== FUNCIONES DE COMPRAS ======================
+// Funciones de compra
 function renderCompras(usuario) {
   const productosDiv = document.getElementById("productosComprados");
   const comprasUsuarios = JSON.parse(localStorage.getItem("comprasUsuarios")) || {};
@@ -159,7 +84,7 @@ function renderCompras(usuario) {
   });
 }
 
-// ====================== FUNCIONES DE RESEÑAS ======================
+// Funciones de reseña
 function renderMisReseñasPerfil(usuario) {
   if (!usuario) return;
   const contenedor = document.getElementById("misReseñas");
@@ -172,7 +97,15 @@ function renderMisReseñasPerfil(usuario) {
   Object.entries(todasReseñas).forEach(([productoId, reseñasArray]) => {
     reseñasArray.forEach((r, index) => {
       if (r.email === usuarioEmail) {
-        reseñasUsuario.push({ ...r, productoId, index });
+        // 👇 Asegurar que siempre exista un nombre para mostrar
+        const nombreMostrar = r.nombreUsuario || usuario.nombre || r.email;
+
+        reseñasUsuario.push({
+          ...r,
+          productoId,
+          index,
+          nombreUsuario: nombreMostrar
+        });
       }
     });
   });
@@ -205,8 +138,8 @@ function renderMisReseñasPerfil(usuario) {
       <div class="flex-grow-1">
         <div class="d-flex justify-content-between align-items-center">
           <strong>${nombreProducto} – ${r.nombreUsuario}</strong>
-            <small class="text-secondary">${fechaFormateada}</small>
-          </div>
+          <small class="text-secondary">${fechaFormateada}</small>
+        </div>
         <div class="text-warning">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</div>
         <p class="mb-1">${r.texto}</p>
         <button class="btn btn-sm btn-outline-danger" data-producto="${r.productoId}" data-index="${r.index}">Eliminar reseña</button>
@@ -235,7 +168,7 @@ function renderMisReseñasPerfil(usuario) {
   });
 }
 
-// ====================== FUNCIONES DE INCIDENCIAS ======================
+// Funciones incidencias
 function renderIncidencias(usuario) {
   const incidenciasDiv = document.getElementById("incidenciasUsuario");
   const todasIncidencias = JSON.parse(localStorage.getItem("mensajesSoporte")) || {};
@@ -269,7 +202,7 @@ function renderIncidencias(usuario) {
   });
 }
 
-// ====================== FORMULARIO SOPORTE ======================
+// Formulario Soporte
 const formSoporte = document.getElementById('formSoporte');
 const respuesta = document.getElementById('respuesta');
 
@@ -295,7 +228,7 @@ if (formSoporte) {
   });
 }
 
-// ====================== GAMIFICACIÓN ======================
+//Gamificación
 function inicializarGamificacion(usuario) {
   let gamificacionDiv = document.getElementById("gamificacionPerfil");
   if (!gamificacionDiv) {
@@ -337,4 +270,3 @@ function actualizarGamificacion(usuario) {
   localStorage.setItem("usuario", JSON.stringify(usuario));
   document.getElementById("codigoRef").textContent = codigo;
 }
-
