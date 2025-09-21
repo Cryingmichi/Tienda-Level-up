@@ -2,6 +2,23 @@
 window.productos = [];
 window.usuario = null;
 
+// --- TOAST GLOBAL ---
+window.mostrarToast = (mensaje, tipo = "success", duracion = 3000) => {
+  const toast = document.createElement("div");
+  toast.className = `toast align-items-center text-bg-${tipo} border-0 show position-fixed top-0 end-0 m-3`;
+  toast.role = "alert";
+  toast.style.zIndex = 9999;
+  toast.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${mensaje}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.remove(), duracion);
+};
+
 // --- ACTUALIZAR NAVBAR ---
 window.actualizarNavbarUsuario = () => {
   const userNameSpan = document.getElementById("userNameShort");
@@ -18,7 +35,7 @@ window.actualizarNavbarUsuario = () => {
       }
       if (text.includes("perfil")) {
         item.style.display = "block";
-        item.href = "/sic/tienda/perfil.html"; // ruta absoluta
+        item.href = "/sic/tienda/perfil.html";
       }
       if (item.id === "btnLogout") {
         item.style.display = "block";
@@ -26,7 +43,7 @@ window.actualizarNavbarUsuario = () => {
           localStorage.removeItem("usuario");
           window.usuario = null;
           window.actualizarNavbarUsuario();
-          alert("Sesión cerrada correctamente.");
+          window.mostrarToast("Sesión cerrada correctamente.", "success", 3000);
           window.location.href = "/index.html";
         });
       }
@@ -38,7 +55,7 @@ window.actualizarNavbarUsuario = () => {
       const text = item.textContent.toLowerCase();
       if (text.includes("ingresar") || text.includes("registrar")) {
         item.style.display = "block";
-        item.href = "sic/tienda/acceso.html"; // ruta absoluta
+        item.href = "/sic/tienda/acceso.html";
       }
       if (item.id === "btnLogout") item.style.display = "none";
       if (text.includes("perfil")) item.style.display = "none";
@@ -47,7 +64,6 @@ window.actualizarNavbarUsuario = () => {
     if (btnUnete) btnUnete.style.display = "inline-block";
   }
 
-  // Mostrar botones de login simulado si no hay usuario
   const loginContainer = document.getElementById("loginSimulado");
   if(loginContainer){
     loginContainer.style.display = window.usuario ? "none" : "block";
@@ -180,7 +196,6 @@ const boot = async () => {
     inicializarFiltros();
     inicializarBuscador();
 
-    // Categorías select
     const catSelect = document.getElementById("cat");
     if(catSelect){
       catSelect.innerHTML = "";
@@ -198,7 +213,6 @@ const boot = async () => {
       });
     }
 
-    // Año footer
     const yearEl = document.getElementById("year");
     if(yearEl) yearEl.textContent = new Date().getFullYear();
 

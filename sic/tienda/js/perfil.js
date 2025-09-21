@@ -269,4 +269,4 @@ function actualizarGamificacion(usuario) {
   usuario.codigoReferido = codigo;
   localStorage.setItem("usuario", JSON.stringify(usuario));
   document.getElementById("codigoRef").textContent = codigo;
-}
+} 

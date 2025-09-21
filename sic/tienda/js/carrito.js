@@ -1,3 +1,32 @@
+// --- ALERTA BONITA ---
+window.mostrarAlerta = (mensaje, tipo = "warning", duracion = 3000, posicion = "top-end") => {
+  const alerta = document.createElement("div");
+  alerta.className = `alert alert-${tipo} alert-dismissible fade show shadow`;
+  alerta.style.position = "fixed";
+  alerta.style.zIndex = 1050;
+
+  switch(posicion) {
+    case "center":
+      alerta.style.top = "50%";
+      alerta.style.left = "50%";
+      alerta.style.transform = "translate(-50%, -50%)";
+      break;
+    case "top-end":
+    default:
+      alerta.style.top = "1rem";
+      alerta.style.right = "1rem";
+      break;
+  }
+
+  alerta.innerHTML = `
+    ${mensaje}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  `;
+  document.body.appendChild(alerta);
+
+  setTimeout(() => alerta.remove(), duracion);
+};
+
 // CARRITO GLOBAL
 const usuario = JSON.parse(localStorage.getItem("usuario"));
 const userEmail = usuario?.email || "invitado"; // usar "invitado" si no hay usuario
@@ -7,7 +36,6 @@ document.querySelectorAll(".btn-agregar").forEach(btn => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   if (!usuario) btn.disabled = true;
 });
-
 
 // Cargar carrito del usuario
 window.carrito = JSON.parse(localStorage.getItem(`carrito_${userEmail}`)) || [];
@@ -29,7 +57,7 @@ window.actualizarContadorCarrito = () => {
 window.agregarAlCarrito = (id, cantidad = 1) => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   if (!usuario) {
-    alert("Debes iniciar sesión para comprar productos.");
+    window.mostrarAlerta("⚠️ Debes iniciar sesión para comprar productos.", "warning");
     return;
   }
 
@@ -60,7 +88,7 @@ window.agregarAlCarrito = (id, cantidad = 1) => {
     window.actualizarContadorCarrito();
     window.renderCarritoSidebar?.();
   } else {
-    alert("No hay stock suficiente");
+    window.mostrarAlerta("❌ No hay stock suficiente.", "danger");
   }
 };
 
@@ -119,7 +147,7 @@ window.renderCarritoSidebar = () => {
         window.guardarCarrito();
         window.renderCarritoSidebar();
         window.actualizarContadorCarrito();
-      } else alert("No hay más stock disponible.");
+      } else window.mostrarAlerta("❌ No hay más stock disponible.", "danger");
     });
 
     document.getElementById(`btnMenos${index}`).addEventListener("click", () => {
@@ -220,7 +248,7 @@ window.renderCarritoPage = () => {
         window.guardarCarrito();
         window.renderCarritoPage();
         window.actualizarContadorCarrito();
-      } else alert("No hay más stock disponible.");
+      } else window.mostrarAlerta("❌ No hay más stock disponible.", "danger");
     });
 
     document.getElementById(`btnMenosPage${index}`).addEventListener("click", () => {
@@ -274,13 +302,13 @@ const eliminarDelCarrito = (index) => {
 window.finalizarCompra = () => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   if (!usuario) {
-    alert("Debes iniciar sesión para finalizar la compra.");
+    window.mostrarAlerta("⚠️ Debes iniciar sesión para finalizar la compra.", "warning");
     window.location.href = "acceso.html"; // redirige a login/registro
     return;
   }
 
   if (window.carrito.length === 0) {
-    alert("Tu carrito está vacío");
+    window.mostrarAlerta("❌ Tu carrito está vacío.", "danger");
     return;
   }
 
@@ -291,7 +319,7 @@ window.finalizarCompra = () => {
   // Nueva compra
   const nuevaCompra = {
     fecha: new Date().toLocaleString(),
-    items: [...window.carrito], // clonamos el carrito
+    items: [...window.carrito],
     total: window.carrito.reduce((acc, i) => acc + i.precio * i.cantidad, 0)
   };
 
@@ -306,9 +334,14 @@ window.finalizarCompra = () => {
   window.renderCarritoSidebar?.();
   window.renderCarritoPage?.();
 
+  // --- ALERTA DE COMPRA EXITOSA ---
+  window.mostrarAlerta("✅ Compra realizada con éxito.", "success", 4000, "top-end");
+
   // Redirigir al perfil
-  window.location.href = "perfil.html";
-};
+  setTimeout(() => {
+    window.location.href = "perfil.html";
+  }, 1500);
+}; // ← CERRAMOS FINALIZAR COMPRA
 
 // --- SIDEBAR: abrir/cerrar ---
 document.addEventListener("DOMContentLoaded", () => {
@@ -361,5 +394,3 @@ window.addEventListener("storage", (e) => {
     window.actualizarProductoDetalleStock?.();
   }
 });
-
-
