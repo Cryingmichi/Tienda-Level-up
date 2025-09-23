@@ -21,7 +21,14 @@ const regiones = [
 const regionSelect = document.getElementById('regionUsuario');
 const comunaSelect = document.getElementById('comunaUsuario');
 
-// Llenar select de regiones
+// OPCIÓN POR DEFECTO REGIÓN
+const defaultRegionOpt = document.createElement('option');
+defaultRegionOpt.textContent = "Seleccione una región";
+defaultRegionOpt.disabled = true;
+defaultRegionOpt.selected = true;
+regionSelect.appendChild(defaultRegionOpt);
+
+// Llenar regiones
 regiones.forEach(r=>{
   const opt = document.createElement('option');
   opt.value = r.nombre;
@@ -29,14 +36,25 @@ regiones.forEach(r=>{
   regionSelect.appendChild(opt);
 });
 
-// Actualizar comunas al cambiar región
+// Función para resetear comunas
+const resetComuna = () => {
+  comunaSelect.innerHTML = '';
+  const defaultComunaOpt = document.createElement('option');
+  defaultComunaOpt.textContent = "Seleccione una comuna";
+  defaultComunaOpt.disabled = true;
+  defaultComunaOpt.selected = true;
+  comunaSelect.appendChild(defaultComunaOpt);
+};
+resetComuna();
+
+// Actualizar comunas al seleccionar región
 regionSelect.addEventListener('change', ()=>{
   const sel = regiones.find(r=>r.nombre===regionSelect.value);
-  comunaSelect.innerHTML = '';
+  resetComuna();
   sel.comunas.forEach(c=>{
     const opt = document.createElement('option');
-    opt.value=c;
-    opt.textContent=c;
+    opt.value = c;
+    opt.textContent = c;
     comunaSelect.appendChild(opt);
   });
 });
@@ -70,9 +88,15 @@ document.getElementById('formNuevoUsuario').addEventListener('submit', e=>{
     return;
   }
 
+  // Validar teléfono
+  const telefonoRegex = /^\+569\d{8}$/;
+  if(!telefonoRegex.test(telefono)){
+    alert('Teléfono inválido. Debe comenzar con +569 y tener 8 dígitos adicionales, ej: +56912345678');
+    return;
+  }
+
   // Guardar usuario en localStorage
   let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-  // Generar ID
   const maxId = usuarios.reduce((max,u)=> Math.max(max, parseInt(u.id.replace(/\D/g,''))), 0);
   const idUsuario = 'U' + String(maxId+1).padStart(3,'0');
 
