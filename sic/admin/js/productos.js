@@ -36,9 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     productos.forEach(p => {
-      // Filtrar stock
-      if (filtro === 'disponible' && p.stock <= 0) return;
-      if (filtro === 'agotado' && p.stock > 0) return;
+      const stock = Number(p.stock);
+
+      // Aplicar filtros
+      if (filtro === 'disponible' && stock <= 0) return;
+      if (filtro === 'agotado' && stock !== 0) return;
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -46,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${p.categoria}</td>
         <td>${p.nombre}</td>
         <td>$${p.precio.toLocaleString()} CLP</td>
-        <td>${p.stock > 0 ? p.stock : 'Agotado'}</td>
+        <td>${stock > 0 ? stock : 'Agotado'}</td>
         <td>
           <button class="btn-editar">Editar</button>
           <button class="btn-eliminar">Eliminar</button>
