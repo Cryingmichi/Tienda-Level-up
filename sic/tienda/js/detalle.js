@@ -134,24 +134,20 @@ window.initFormReseña = () => {
   const ratingInput = document.getElementById("reseñaRating");
   if (!btnEnviar || !estrellasForm || !ratingInput) return;
 
-  // Valor inicial de estrellas
   let rating = parseInt(ratingInput.value) || 5;
   estrellasForm.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
 
-  // Evento para mostrar estrellas según el movimiento del mouse
   estrellasForm.addEventListener("mousemove", (e) => {
     const width = estrellasForm.clientWidth / 5;
     const hoverRating = Math.ceil(e.offsetX / width);
     estrellasForm.textContent = "★".repeat(hoverRating) + "☆".repeat(5 - hoverRating);
   });
 
-  // Evento al salir con el mouse: volver al valor guardado
   estrellasForm.addEventListener("mouseleave", () => {
     rating = parseInt(ratingInput.value) || 5;
     estrellasForm.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
   });
 
-  // Evento click para seleccionar rating
   estrellasForm.addEventListener("click", (e) => {
     const width = estrellasForm.clientWidth / 5;
     rating = Math.ceil(e.offsetX / width);
@@ -159,36 +155,46 @@ window.initFormReseña = () => {
     estrellasForm.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
   });
 
-  // Botón enviar reseña
   btnEnviar.addEventListener("click", () => {
     if (!window.usuario) {
-      alert("Debes iniciar sesión para enviar una reseña.");
+      window.mostrarAlerta("⚠️ Debes iniciar sesión para enviar una reseña.", "warning");
       return;
     }
 
     const nombre = window.usuario.nombre;
-    const email = window.usuario.email; // ← Se guarda el email
+    const email = window.usuario.email;
     const texto = document.getElementById("reseñaTexto")?.value.trim();
-    if (!texto) { alert("Completa tu reseña."); return; }
+    if (!texto) {
+      window.mostrarAlerta("❌ Completa tu reseña.", "danger");
+      return;
+    }
 
-    const nueva = { nombre, email, texto, rating, fecha: new Date() }; // ← Guardar email
+    const nueva = { nombre, email, texto, rating, fecha: new Date() };
+
+    // Guardar reseña en memoria
     window.reseñas.push(nueva);
 
-    // === Actualizar nombre en todas las reseñas existentes ===
-  // Actualizar nombre en todas las reseñas del usuario
-  const todasReseñas = JSON.parse(localStorage.getItem("reseñas")) || {};
-  Object.values(todasReseñas).forEach(reseñasArray => {
-    reseñasArray.forEach(r => {
-      if (r.email === usuario.email) r.nombre = usuario.nombre;
+    // Guardar en localStorage
+    const todasReseñas = JSON.parse(localStorage.getItem("reseñas")) || {};
+    if (!todasReseñas[window.productoDetalle.id]) todasReseñas[window.productoDetalle.id] = [];
+    todasReseñas[window.productoDetalle.id] = window.reseñas;
+    localStorage.setItem("reseñas", JSON.stringify(todasReseñas));
+
+    // Actualizar nombre en todas las reseñas del usuario
+    Object.values(todasReseñas).forEach(reseñasArray => {
+      reseñasArray.forEach(r => {
+        if (r.email === window.usuario.email) r.nombre = window.usuario.nombre;
+      });
     });
+    localStorage.setItem("reseñas", JSON.stringify(todasReseñas));
+
+    // Renderizar nuevamente
+    window.renderReseñas();
+
+    // Limpiar textarea
+    document.getElementById("reseñaTexto").value = "";
+
+    // Mostrar alerta bonita
+    window.mostrarAlerta("✅ Reseña enviada correctamente.", "success");
   });
-  localStorage.setItem("reseñas", JSON.stringify(todasReseñas));
-
-  // Actualizar reseñas en detalle de producto si está abierto
-  if (window.productoDetalle) {
-    window.reseñas = todasReseñas[window.productoDetalle.id] || [];
-    window.renderReseñas(); // refresca la vista
-  }
-});
 };
-

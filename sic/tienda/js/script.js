@@ -241,5 +241,4 @@ document.addEventListener("DOMContentLoaded", ()=>{
   window.usuario = JSON.parse(localStorage.getItem("usuario")) || null;
   window.actualizarNavbarUsuario();
   boot();
-  inicializarLoginSimulado();
 });

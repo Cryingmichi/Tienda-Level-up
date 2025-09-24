@@ -29,6 +29,19 @@
       max-height: 150px;
       object-fit: cover;
     }
+    .mensaje-puntos {
+      position: fixed;
+      top: 20px;         /* distancia desde la parte superior */
+      left: 20px;        /* distancia desde la parte izquierda */
+      background-color: rgba(255, 255, 0, 0.9); /* amarillo semi-transparente */
+      color: black;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      z-index: 9999;     /* para que quede encima de otros elementos */
+      max-width: 250px;  /* opcional, ancho máximo */
+    }
+
   </style>
 </head>
 <body>
@@ -75,6 +88,18 @@
     <p id="userEmail" class="text-secondary"></p>
   </div>
 
+  <!-- Gamificación: se llenará dinámicamente desde JS -->
+  <div class="profile-section" id="gamificacionPerfil">
+    <div class="mt-3">
+      <label for="inputCodigo" class="form-label">Introduce un código para ganar puntos:</label>
+      <div class="d-flex gap-2">
+        <input type="text" id="inputCodigo" class="form-control" placeholder="Código">
+        <button id="btnCanjearCodigo" class="btn btn-success">Canjear</button>
+      </div>
+      <p id="mensajeCodigo" class="mt-2 text-warning"></p>
+    </div>
+  </div>
+
   <!-- Productos comprados -->
   <div class="profile-section">
     <h4>Productos Comprados</h4>
@@ -92,11 +117,6 @@
     <h4>Solicitudes de Soporte</h4>
     <div id="incidenciasUsuario" class="list-group"></div>
   </div>
-
-  <!-- Gamificación y Referidos -->
-  <div class="profile-section" id="gamificacionPerfil">
-    <!-- Se llena dinámicamente desde JS -->
-  </div>
 </section>
 
 <!-- Footer -->
@@ -108,6 +128,7 @@
   </div>
 </footer>
 
+<div id="mensajePuntos" class="mensaje-puntos" style="display:none;"></div>
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/stock.js"></script>

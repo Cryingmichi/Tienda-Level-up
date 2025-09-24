@@ -137,7 +137,7 @@ if (formRegistro) {
     // Validación email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if(!emailRegex.test(email)){
-      document.getElementById("regEmail").setCustomValidity("⚠️ Ingresa un correo válido.");
+      document.getElementById("regEmail").setCustomValidity("Ingresa un correo válido.");
       formRegistro.classList.add("was-validated");
       return;
     } else document.getElementById("regEmail").setCustomValidity("");

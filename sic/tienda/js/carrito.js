@@ -11,6 +11,10 @@ window.mostrarAlerta = (mensaje, tipo = "warning", duracion = 3000, posicion = "
       alerta.style.left = "50%";
       alerta.style.transform = "translate(-50%, -50%)";
       break;
+    case "top-start":   // izquierda superior
+      alerta.style.top = "1rem";
+      alerta.style.left = "1rem";
+      break;
     case "top-end":
     default:
       alerta.style.top = "1rem";
@@ -26,6 +30,11 @@ window.mostrarAlerta = (mensaje, tipo = "warning", duracion = 3000, posicion = "
 
   setTimeout(() => alerta.remove(), duracion);
 };
+
+// --- PUNTOS LVL UP ---
+const puntosPorPesos = 1000; // 1 punto por cada $1000 gastados
+const descuentoPorPuntos = 100; // cada 100 puntos se puede usar
+const valorDescuentoPorPuntos = 500; // $500 de descuento por cada bloque de 100 puntos
 
 // CARRITO GLOBAL
 const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -103,6 +112,7 @@ window.renderCarritoSidebar = () => {
     return;
   }
 
+  // Render de productos en carrito
   window.carrito.forEach((item, index) => {
     const div = document.createElement("div");
     div.className = "d-flex justify-content-between align-items-center mb-2 border-bottom pb-2";
@@ -166,9 +176,52 @@ window.renderCarritoSidebar = () => {
   });
 
   const total = window.carrito.reduce((acc, i) => acc + i.precio * i.cantidad, 0);
+
+  // --- Checkbox para usar puntos LVL UP ---
+  let usarPuntos = false;
+  const lvlPoints = usuario?.lvlPoints || 0;
+
+  if (usuario && lvlPoints > 0) {
+    // Crear checkbox si no existe
+    if (!document.getElementById("usarPuntosCheckbox")) {
+      const div = document.createElement("div");
+      div.className = "mt-2 mb-2 text-warning";
+      div.innerHTML = `
+        <input type="checkbox" id="usarPuntosCheckbox">
+        <label for="usarPuntosCheckbox">Usar puntos LVL UP (${lvlPoints} pts disponibles)</label>
+      `;
+      carritoBody.appendChild(div);
+    }
+
+    // Agregar listener solo si el checkbox existe
+    const checkbox = document.getElementById("usarPuntosCheckbox");
+    if (checkbox) {
+      checkbox.removeEventListener("change", window.renderCarritoSidebar); // limpiar listeners antiguos
+      checkbox.addEventListener("change", window.renderCarritoSidebar);
+      usarPuntos = checkbox.checked;
+    }
+  }
+
+  // Calcular total con puntos
+  let totalConPuntos = total;
+  let puntosAplicados = 0;
+
+  if (usuario && usarPuntos) {
+    const bloques = Math.floor(usuario.lvlPoints / descuentoPorPuntos);
+    puntosAplicados = bloques * descuentoPorPuntos;
+    const descuento = bloques * valorDescuentoPorPuntos;
+    totalConPuntos -= descuento;
+
+    const descuentoDiv = document.createElement("div");
+    descuentoDiv.className = "text-success fw-bold";
+    descuentoDiv.textContent = `Descuento aplicado: $${descuento.toLocaleString()} (${puntosAplicados} pts)`;
+    carritoBody.appendChild(descuentoDiv);
+  }
+
+  // Mostrar total final
   const totalDiv = document.createElement("div");
   totalDiv.className = "mt-3 fw-bold";
-  totalDiv.textContent = `Total: $${total.toLocaleString()}`;
+  totalDiv.textContent = `Total: $${totalConPuntos.toLocaleString()}`;
   carritoBody.appendChild(totalDiv);
 
   const btnVerCarrito = document.createElement("a");
@@ -183,6 +236,7 @@ window.renderCarritoSidebar = () => {
   btnComprar.onclick = () => window.finalizarCompra();
   carritoBody.appendChild(btnComprar);
 };
+
 
 // --- CARRITO PAGE ---
 window.renderCarritoPage = () => {
@@ -270,9 +324,23 @@ window.renderCarritoPage = () => {
     });
   });
 
+  // --- Total con puntos (si aplica) ---
+  let totalConPuntos = total;
+  const usarPuntos = document.getElementById("usarPuntosCheckbox")?.checked || false;
+  if (usuario && usarPuntos) {
+    const bloques = Math.floor(usuario.lvlPoints / descuentoPorPuntos);
+    const descuento = bloques * valorDescuentoPorPuntos;
+    totalConPuntos -= descuento;
+
+    const descuentoDiv = document.createElement("div");
+    descuentoDiv.className = "text-success fw-bold";
+    descuentoDiv.textContent = `Descuento aplicado: $${descuento.toLocaleString()} (${bloques * descuentoPorPuntos} pts)`;
+    cartFooter.appendChild(descuentoDiv);
+  }
+
   const totalDiv = document.createElement("div");
   totalDiv.className = "cart-total";
-  totalDiv.textContent = `Total: $${total.toLocaleString()}`;
+  totalDiv.textContent = `Total: $${totalConPuntos.toLocaleString()}`;
   cartFooter.appendChild(totalDiv);
 
   const btnSeguir = document.createElement("a");
@@ -303,7 +371,7 @@ window.finalizarCompra = () => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   if (!usuario) {
     window.mostrarAlerta("⚠️ Debes iniciar sesión para finalizar la compra.", "warning");
-    window.location.href = "acceso.html"; // redirige a login/registro
+    window.location.href = "acceso.html";
     return;
   }
 
@@ -312,17 +380,38 @@ window.finalizarCompra = () => {
     return;
   }
 
-  // Recuperar historial de compras por usuario
+  // Recuperar historial de compras
   const comprasUsuarios = JSON.parse(localStorage.getItem("comprasUsuarios")) || {};
   const compras = comprasUsuarios[userEmail] || [];
+
+  // Calcular total
+  let total = window.carrito.reduce((acc, i) => acc + i.precio * i.cantidad, 0);
+
+  // Aplicar puntos si seleccionó usar
+  const usarPuntos = document.getElementById("usarPuntosCheckbox")?.checked || false;
+  let puntosUsados = 0;
+  if (usarPuntos && usuario.lvlPoints > 0) {
+    const bloques = Math.floor(usuario.lvlPoints / descuentoPorPuntos);
+    puntosUsados = bloques * descuentoPorPuntos;
+    const descuento = bloques * valorDescuentoPorPuntos;
+    total -= descuento;
+    usuario.lvlPoints -= puntosUsados;
+    window.mostrarAlerta(`💎 Has usado ${puntosUsados} pts para descontar $${descuento.toLocaleString()}.`, "info", 4000);
+  }
+
+  // Ganar puntos por compra
+  const puntosGanados = Math.floor(total / puntosPorPesos);
+  usuario.lvlPoints = (usuario.lvlPoints || 0) + puntosGanados;
+
+  // Guardar usuario actualizado
+  localStorage.setItem("usuario", JSON.stringify(usuario));
 
   // Nueva compra
   const nuevaCompra = {
     fecha: new Date().toLocaleString(),
     items: [...window.carrito],
-    total: window.carrito.reduce((acc, i) => acc + i.precio * i.cantidad, 0)
+    total: total
   };
-
   compras.push(nuevaCompra);
   comprasUsuarios[userEmail] = compras;
   localStorage.setItem("comprasUsuarios", JSON.stringify(comprasUsuarios));
@@ -334,14 +423,14 @@ window.finalizarCompra = () => {
   window.renderCarritoSidebar?.();
   window.renderCarritoPage?.();
 
-  // --- ALERTA DE COMPRA EXITOSA ---
-  window.mostrarAlerta("✅ Compra realizada con éxito.", "success", 4000, "top-end");
+  // Alerta compra exitosa
+  window.mostrarAlerta(`✅ Compra realizada con éxito. Has ganado ${puntosGanados} pts LVL UP.`, "success", 4000, "top-start");
 
   // Redirigir al perfil
   setTimeout(() => {
     window.location.href = "perfil.html";
   }, 1500);
-}; // ← CERRAMOS FINALIZAR COMPRA
+};
 
 // --- SIDEBAR: abrir/cerrar ---
 document.addEventListener("DOMContentLoaded", () => {
@@ -350,7 +439,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnCerrarCarrito = document.getElementById("btnCerrarCarrito");
 
   const cerrarSidebar = () => {
-    carritoSidebarEl.classList.remove("open");
+    if (carritoSidebarEl) {
+      carritoSidebarEl.classList.remove("open");
+    }
   };
 
   if (btnAbrirCarrito && carritoSidebarEl) {
@@ -360,27 +451,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (btnCerrarCarrito) {
+  if (btnCerrarCarrito && carritoSidebarEl) {
     btnCerrarCarrito.addEventListener("click", cerrarSidebar);
   }
 
-  document.addEventListener("click", (e) => {
-    if (
-      carritoSidebarEl.classList.contains("open") &&
-      !carritoSidebarEl.contains(e.target) &&
-      e.target !== btnAbrirCarrito
-    ) {
-      cerrarSidebar();
-    }
-  });
+  if (carritoSidebarEl) {
+    document.addEventListener("click", (e) => {
+      if (
+        carritoSidebarEl.classList.contains("open") &&
+        !carritoSidebarEl.contains(e.target) &&
+        e.target !== btnAbrirCarrito
+      ) {
+        cerrarSidebar();
+      }
+    });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && carritoSidebarEl.classList.contains("open")) {
-      cerrarSidebar();
-    }
-  });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && carritoSidebarEl.classList.contains("open")) {
+        cerrarSidebar();
+      }
+    });
+  }
 
-  window.renderCarritoPage();
+  window.renderCarritoPage?.();
 });
 
 // --- SINCRONIZAR CARRITO ENTRE PESTAÑAS ---

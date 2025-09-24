@@ -11,27 +11,29 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="img/logo.png" type="image/png">
   <style>
-    .cart-details {
-        flex: 1; 
-        margin-left: 1rem; 
-        }
-    .cart-actions button { 
-        width: 32px; 
-        height: 32px; 
-        }
-    .cart-total {
-        font-size: 1.25rem;
-        font-weight: bold;
-        margin-top: 1rem; 
-        }
-    .text-decoration-line-through {
-  text-decoration: line-through;
-    }
+    .cart-details 
+    { flex: 1; 
+      margin-left: 1rem; }
 
-    .badge {
-    font-size: 0.75rem;
-    vertical-align: middle;
-    }
+    .cart-actions button 
+    { width: 32px; 
+      height: 32px; }
+
+    .cart-total 
+    { font-size: 1.25rem; 
+      font-weight: bold;
+      margin-top: 1rem; }
+
+    .text-decoration-line-through 
+    { text-decoration: line-through; }
+
+    .badge 
+    { font-size: 0.75rem; 
+      vertical-align: middle; }
+
+    #usarPuntosContainer 
+    { margin: 1rem 0; }
+
   </style>
 </head>
 <body>
@@ -77,6 +79,12 @@
     <h2 class="section-title mb-4">Tu Carrito</h2>
     <div id="carritoItems" class="d-flex flex-column gap-3"></div>
 
+    <!-- Usar puntos LVL UP -->
+    <div id="usarPuntosContainer" class="form-check d-none">
+      <input class="form-check-input" type="checkbox" value="" id="usarPuntosCheckbox">
+      <label class="form-check-label text-warning" for="usarPuntosCheckbox" id="labelPuntos">Usar puntos LVL UP (0 pts disponibles)</label>
+    </div>
+
     <!-- Total y botones -->
     <div id="cartFooter" class="mt-4 d-flex flex-column gap-2"></div>
   </div>
@@ -97,5 +105,25 @@
 <script src="js/carrito.js"></script>
 <script src="js/script.js"></script>
 <script src="js/compra.js" ></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const usarPuntosContainer = document.getElementById("usarPuntosContainer");
+  const usarPuntosCheckbox = document.getElementById("usarPuntosCheckbox");
+  const labelPuntos = document.getElementById("labelPuntos");
+
+  if (usuario && usuario.lvlPoints > 0) {
+    usarPuntosContainer.classList.remove("d-none");
+    labelPuntos.textContent = `Usar puntos LVL UP (${usuario.lvlPoints} pts disponibles)`;
+
+    usarPuntosCheckbox.addEventListener("change", () => {
+      window.renderCarritoPage();
+      window.renderCarritoSidebar?.();
+    });
+  }
+});
+</script>
+
 </body>
 </html>

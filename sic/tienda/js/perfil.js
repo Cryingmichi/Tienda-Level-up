@@ -1,13 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
+  // Inicializar puntos si no existen
+  if (usuario && usuario.lvlPoints === undefined) {
+    usuario.lvlPoints = 0;
+    localStorage.setItem("usuario", JSON.stringify(usuario));
+
+    // También actualizar en usuariosRegistrados
+    let usuariosRegistrados = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
+    const index = usuariosRegistrados.findIndex(u => u.email === usuario.email);
+    if (index >= 0) {
+      usuariosRegistrados[index].lvlPoints = 0;
+      localStorage.setItem("usuariosRegistrados", JSON.stringify(usuariosRegistrados));
+    }
+  }
+
   // Mostrar datos del usuario
   if (usuario) {
-    document.getElementById("userName").textContent = `Bienvenido, ${usuario.nombre}`;
-    document.getElementById("userEmail").textContent = usuario.email;
-
-    const userNameShort = document.getElementById("userNameShort");
-    if (userNameShort) userNameShort.textContent = usuario.nombre;
+    actualizarHeaderUsuario(usuario); // badge naranja
   } else {
     document.getElementById("userName").textContent = "Bienvenido, Invitado";
     document.getElementById("userEmail").textContent = "";
@@ -26,7 +36,20 @@ document.addEventListener("DOMContentLoaded", () => {
   if (usuario) inicializarGamificacion(usuario);
 });
 
-// Funciones de compra
+// -------------------- FUNCIONES DE HEADER --------------------
+function actualizarHeaderUsuario(usuario) {
+  const userNameElem = document.getElementById("userName");
+  const puntosBadge = `<span class="badge bg-warning text-dark ms-2">${usuario.lvlPoints || 0} pts</span>`;
+  if (userNameElem) userNameElem.innerHTML = `Bienvenido, ${usuario.nombre}${puntosBadge}`;
+
+  const userEmailElem = document.getElementById("userEmail");
+  if (userEmailElem) userEmailElem.textContent = usuario.email;
+
+  const userNameShort = document.getElementById("userNameShort");
+  if (userNameShort) userNameShort.textContent = usuario.nombre;
+}
+
+// -------------------- FUNCIONES DE COMPRAS --------------------
 function renderCompras(usuario) {
   const productosDiv = document.getElementById("productosComprados");
   const comprasUsuarios = JSON.parse(localStorage.getItem("comprasUsuarios")) || {};
@@ -84,7 +107,7 @@ function renderCompras(usuario) {
   });
 }
 
-// Funciones de reseña
+// -------------------- FUNCIONES DE RESEÑAS --------------------
 function renderMisReseñasPerfil(usuario) {
   if (!usuario) return;
   const contenedor = document.getElementById("misReseñas");
@@ -97,15 +120,8 @@ function renderMisReseñasPerfil(usuario) {
   Object.entries(todasReseñas).forEach(([productoId, reseñasArray]) => {
     reseñasArray.forEach((r, index) => {
       if (r.email === usuarioEmail) {
-        // 👇 Asegurar que siempre exista un nombre para mostrar
         const nombreMostrar = r.nombreUsuario || usuario.nombre || r.email;
-
-        reseñasUsuario.push({
-          ...r,
-          productoId,
-          index,
-          nombreUsuario: nombreMostrar
-        });
+        reseñasUsuario.push({ ...r, productoId, index, nombreUsuario: nombreMostrar });
       }
     });
   });
@@ -119,7 +135,7 @@ function renderMisReseñasPerfil(usuario) {
   }
 
   reseñasUsuario.forEach(r => {
-    const producto = window.productos.find(p => p.id === r.productoId);
+    const producto = window.productos?.find(p => p.id === r.productoId);
     const nombreProducto = producto ? producto.nombre : r.productoId;
     const imagenProducto = producto ? producto.imagen : "";
     const fechaFormateada = new Date(r.fecha).toLocaleString("es-CL", {
@@ -168,7 +184,7 @@ function renderMisReseñasPerfil(usuario) {
   });
 }
 
-// Funciones incidencias
+// -------------------- FUNCIONES DE INCIDENCIAS --------------------
 function renderIncidencias(usuario) {
   const incidenciasDiv = document.getElementById("incidenciasUsuario");
   const todasIncidencias = JSON.parse(localStorage.getItem("mensajesSoporte")) || {};
@@ -202,7 +218,7 @@ function renderIncidencias(usuario) {
   });
 }
 
-// Formulario Soporte
+// -------------------- FORMULARIO SOPORTE --------------------
 const formSoporte = document.getElementById('formSoporte');
 const respuesta = document.getElementById('respuesta');
 
@@ -228,45 +244,51 @@ if (formSoporte) {
   });
 }
 
-//Gamificación
+// -------------------- GAMIFICACIÓN Y CÓDIGOS --------------------
 function inicializarGamificacion(usuario) {
-  let gamificacionDiv = document.getElementById("gamificacionPerfil");
-  if (!gamificacionDiv) {
-    gamificacionDiv = document.createElement("div");
-    gamificacionDiv.className = "profile-section";
-    gamificacionDiv.innerHTML = `
-      <h4>Gamificación y Referidos</h4>
-      <p>Puntos acumulados: <span id="puntosUser">0</span></p>
-      <p>Nivel: <span id="nivelUser">Bronce</span></p>
-      <p>Código de referido: <span id="codigoRef"></span></p>
-    `;
-    document.querySelector("section.container").appendChild(gamificacionDiv);
-  }
-  actualizarGamificacion(usuario);
+  const input = document.getElementById("inputCodigo");
+  const btnCanjear = document.getElementById("btnCanjearCodigo");
+  const mensaje = document.getElementById("mensajeCodigo");
+
+  // Lista de códigos disponibles globalmente
+  const codigosGlobales = {
+    "CODIGO1": 10000,
+    "CODIGO2": 10000,
+    "CODIGO3": 10000
+  };
+
+  // Crear registro de códigos usados por usuario si no existe
+  let codigosPorUsuario = JSON.parse(localStorage.getItem("codigosPorUsuario")) || {};
+  if (!codigosPorUsuario[usuario.email]) codigosPorUsuario[usuario.email] = {};
+
+  btnCanjear?.addEventListener("click", () => {
+    const codigoIngresado = input.value.trim().toUpperCase();
+    if (!codigoIngresado) return;
+
+    // Verificar que el código exista y que el usuario no lo haya usado
+    if (codigosGlobales[codigoIngresado] && !codigosPorUsuario[usuario.email][codigoIngresado]) {
+      const puntosGanados = codigosGlobales[codigoIngresado];
+
+      // Sumar puntos al usuario
+      usuario.lvlPoints = (usuario.lvlPoints || 0) + puntosGanados;
+      localStorage.setItem("usuario", JSON.stringify(usuario));
+
+      // Marcar código como usado por este usuario
+      codigosPorUsuario[usuario.email][codigoIngresado] = true;
+      localStorage.setItem("codigosPorUsuario", JSON.stringify(codigosPorUsuario));
+
+      mensaje.textContent = `¡Código canjeado! Has ganado ${puntosGanados} puntos.`;
+      mensaje.classList.remove("text-danger");
+      mensaje.classList.add("text-success");
+      input.value = "";
+
+      actualizarHeaderUsuario(usuario); // actualizar badge de puntos en header
+    } else {
+      mensaje.textContent = "Código inválido o ya usado.";
+      mensaje.classList.remove("text-success");
+      mensaje.classList.add("text-danger");
+    }
+  });
+  
+  
 }
-
-function sumarPuntosPorCompra(usuarioEmail, monto) {
-  const usuariosPuntos = JSON.parse(localStorage.getItem("usuariosPuntos")) || {};
-  const puntosAGanar = Math.floor(monto / 100);
-  usuariosPuntos[usuarioEmail] = (usuariosPuntos[usuarioEmail] || 0) + puntosAGanar;
-  localStorage.setItem("usuariosPuntos", JSON.stringify(usuariosPuntos));
-}
-
-function calcularNivel(puntos) {
-  if (puntos >= 500) return "Oro";
-  if (puntos >= 200) return "Plata";
-  return "Bronce";
-}
-
-function actualizarGamificacion(usuario) {
-  const usuariosPuntos = JSON.parse(localStorage.getItem("usuariosPuntos")) || {};
-  const puntos = usuariosPuntos[usuario.email] || 0;
-
-  document.getElementById("puntosUser").textContent = puntos;
-  document.getElementById("nivelUser").textContent = calcularNivel(puntos);
-
-  let codigo = usuario.codigoReferido || usuario.email.slice(0,3).toUpperCase() + Math.floor(Math.random()*1000);
-  usuario.codigoReferido = codigo;
-  localStorage.setItem("usuario", JSON.stringify(usuario));
-  document.getElementById("codigoRef").textContent = codigo;
-} 

@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let precioHtml = "";
     let precioUnitario = item.precio;
 
-    // Mostrar precio original y descuento solo si existe
     if (item.precioOriginal && item.precioOriginal > item.precio) {
       const descuento = Math.round((1 - item.precio / item.precioOriginal) * 100);
       precioHtml = `
@@ -55,23 +54,66 @@ document.addEventListener("DOMContentLoaded", () => {
     checkoutItems.appendChild(div);
   });
 
+  // --- PUNTOS LVL UP ---
+  let descuentoPorPuntos = 0;
+  let usarPuntos = false;
+
+  if (usuario) {
+    const puntosUsuario = usuario.lvlPoints || 0;
+
+    const puntosDiv = document.createElement("div");
+    puntosDiv.className = "mb-3";
+    puntosDiv.innerHTML = `
+      <strong>Puntos LVL UP: ${puntosUsuario}</strong><br>
+      <input type="checkbox" id="usarPuntos"> Usar puntos para descuento (1000 puntos = $100)
+    `;
+    checkoutItems.prepend(puntosDiv);
+
+    document.getElementById("usarPuntos").addEventListener("change", (e) => {
+      usarPuntos = e.target.checked;
+      if (usarPuntos) {
+        descuentoPorPuntos = Math.floor(puntosUsuario / 1000) * 100;
+      } else {
+        descuentoPorPuntos = 0;
+      }
+      checkoutTotal.textContent = `Total a pagar: $${(total - descuentoPorPuntos).toLocaleString()}`;
+    });
+  }
+
   checkoutTotal.textContent = `Total a pagar: $${total.toLocaleString()}`;
 
   // Confirmar compra
   btnConfirmar.addEventListener("click", () => {
     if (carrito.length === 0) return;
-
     if (!usuario) return alert("Debes iniciar sesión para comprar.");
 
-    // Crear objeto de compra asociado al usuario
+    let totalFinal = total - descuentoPorPuntos;
+
+    // Restar puntos usados
+    if (usarPuntos) {
+      usuario.lvlPoints -= descuentoPorPuntos / 100 * 1000; // convertir a puntos
+    }
+
+    // Sumar puntos por la compra (1 punto cada $100 gastados)
+    const puntosGanados = Math.floor(totalFinal / 100);
+    usuario.lvlPoints = (usuario.lvlPoints || 0) + puntosGanados;
+
+    // Actualizar usuario en localStorage
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const index = usuarios.findIndex(u => u.email === usuario.email);
+    if (index !== -1) usuarios[index] = usuario;
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    localStorage.setItem("usuario", JSON.stringify(usuario));
+
+    // Guardar compra
     const compra = {
-      usuarioEmail: usuario.email,       // clave para filtrar luego
+      usuarioEmail: usuario.email,
       fecha: new Date().toLocaleString(),
       items: carrito,
-      total: total
+      total: totalFinal,
+      puntosUsados: descuentoPorPuntos,
+      puntosGanados
     };
-
-    // Guardar en localStorage
     const compras = JSON.parse(localStorage.getItem("compras")) || [];
     compras.push(compra);
     localStorage.setItem("compras", JSON.stringify(compras));
@@ -81,8 +123,8 @@ document.addEventListener("DOMContentLoaded", () => {
     window.carrito = [];
     window.actualizarContadorCarrito();
 
-    alert("¡Compra realizada con éxito!");
-    window.location.href = "../index.html";
+    window.mostrarAlerta(`✅ Compra realizada con éxito. Ganaste ${puntosGanados} puntos LVL UP`, "success", 4000, "top-end");
+
+    setTimeout(() => window.location.href = "../index.html", 1500);
   });
 });
-
