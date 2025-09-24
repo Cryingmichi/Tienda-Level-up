@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderTabla();
     } else {
       try {
-        const response = await fetch('productos.json');
+        const response = await fetch('productos.json'); //aqui error
         if (!response.ok) throw new Error('Error al cargar productos.json');
         const data = await response.json();
         productos = data.productos.map(p => ({
