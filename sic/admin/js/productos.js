@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderTabla();
     } else {
       try {
-        const response = await fetch('productos.json'); //aqui error
+        const response = await fetch('productos.json');
         if (!response.ok) throw new Error('Error al cargar productos.json');
         const data = await response.json();
         productos = data.productos.map(p => ({
@@ -36,11 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     productos.forEach(p => {
-      const stock = Number(p.stock);
-
-      // Aplicar filtros
-      if (filtro === 'disponible' && stock <= 0) return;
-      if (filtro === 'agotado' && stock !== 0) return;
+      // Filtrar stock
+      if (filtro === 'disponible' && p.stock <= 0) return;
+      if (filtro === 'agotado' && p.stock > 0) return;
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -48,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${p.categoria}</td>
         <td>${p.nombre}</td>
         <td>$${p.precio.toLocaleString()} CLP</td>
-        <td>${stock > 0 ? stock : 'Agotado'}</td>
+        <td>${p.stock > 0 ? p.stock : 'Agotado'}</td>
         <td>
           <button class="btn-editar">Editar</button>
           <button class="btn-eliminar">Eliminar</button>
