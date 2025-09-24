@@ -1,42 +1,22 @@
 // --- CLAVE FIJA PARA ENCRIPTACIÓN ---
 const claveSecreta = "miClaveFijaParaAES";
 
-// --- CREAR USUARIOS PREDEFINIDOS SI NO EXISTEN O ACTUALIZAR CLAVE ---
+// --- CREAR USUARIOS PREDEFINIDOS SI NO EXISTEN ---
 let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-const usuariosIniciales = [
-  {
-    nombre: "Admin",
-    apellido: "Sistema",
-    rut: CryptoJS.AES.encrypt("12345678K", claveSecreta).toString(),
-    email: "admin@levelup.cl",
-    fecha: "1990-01-01",
-    region: "Metropolitana",
-    comuna: "Santiago",
-    telefono: "123456789",
-    password: CryptoJS.AES.encrypt("admin123", claveSecreta).toString(),
-    esDuoc: false,
-    rol: "admin"
-  },
-  {
-    nombre: "Usuario",
-    apellido: "Normal",
-    rut: CryptoJS.AES.encrypt("87654321K", claveSecreta).toString(),
-    email: "usuario@levelup.cl",
-    fecha: "1995-05-10",
-    region: "Metropolitana",
-    comuna: "Providencia",
-    telefono: "987654321",
-    password: CryptoJS.AES.encrypt("user123", claveSecreta).toString(),
-    esDuoc: false,
-    rol: "usuario"
-  }
-];
-
-// Si no hay usuarios, agregamos los iniciales
 if (usuarios.length === 0) {
-  usuarios = usuariosIniciales;
-  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+  fetch("data/usuarios.json")
+    .then(res => res.json())
+    .then(data => {
+      // Encriptar rut y contraseña de los usuarios iniciales
+      usuarios = data.map(u => ({
+        ...u,
+        rut: CryptoJS.AES.encrypt(u.rut, claveSecreta).toString(),
+        password: CryptoJS.AES.encrypt(u.password, claveSecreta).toString()
+      }));
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    })
+    .catch(err => console.error("Error cargando usuarios JSON:", err));
 } else {
   // Re-encriptar usuarios existentes si no tienen la clave correcta (por seguridad)
   usuarios = usuarios.map(u => {
@@ -44,7 +24,6 @@ if (usuarios.length === 0) {
       CryptoJS.AES.decrypt(u.password, claveSecreta).toString(CryptoJS.enc.Utf8);
       return u; // si desencripta sin error, mantener
     } catch {
-      // si falla, re-encriptar con clave fija usando contraseña original si existe
       const passOriginal = u.password || "temporal123";
       return { ...u, password: CryptoJS.AES.encrypt(passOriginal, claveSecreta).toString() };
     }

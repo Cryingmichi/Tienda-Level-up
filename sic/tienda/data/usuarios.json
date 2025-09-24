@@ -1,0 +1,28 @@
+[
+  {
+    "nombre": "Admin",
+    "apellido": "Sistema",
+    "rut": "12345678K",
+    "email": "admin@levelup.cl",
+    "fecha": "1990-01-01",
+    "region": "Metropolitana",
+    "comuna": "Santiago",
+    "telefono": "123456789",
+    "password": "admin123",
+    "esDuoc": false,
+    "rol": "admin"
+  },
+  {
+    "nombre": "Usuario",
+    "apellido": "Normal",
+    "rut": "87654321K",
+    "email": "usuario@levelup.cl",
+    "fecha": "1995-05-10",
+    "region": "Metropolitana",
+    "comuna": "Providencia",
+    "telefono": "987654321",
+    "password": "user123",
+    "esDuoc": false,
+    "rol": "usuario"
+  }
+]
