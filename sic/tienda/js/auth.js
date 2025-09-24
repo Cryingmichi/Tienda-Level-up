@@ -1,3 +1,42 @@
+// --- CLAVE FIJA PARA ENCRIPTACIÓN ---
+const claveSecreta = "miClaveFijaParaAES";
+
+// --- CREAR USUARIOS PREDEFINIDOS SI NO EXISTEN ---
+let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+if(usuarios.length === 0){
+  const usuariosIniciales = [
+    {
+      nombre: "Admin",
+      apellido: "Sistema",
+      rut: CryptoJS.AES.encrypt("12345678K", claveSecreta).toString(),
+      email: "admin@levelup.cl",
+      fecha: "1990-01-01",
+      region: "Metropolitana",
+      comuna: "Santiago",
+      telefono: "123456789",
+      password: CryptoJS.AES.encrypt("admin123", claveSecreta).toString(),
+      esDuoc: false,
+      rol: "admin"
+    },
+    {
+      nombre: "Usuario",
+      apellido: "Normal",
+      rut: CryptoJS.AES.encrypt("87654321K", claveSecreta).toString(),
+      email: "usuario@levelup.cl",
+      fecha: "1995-05-10",
+      region: "Metropolitana",
+      comuna: "Providencia",
+      telefono: "987654321",
+      password: CryptoJS.AES.encrypt("user123", claveSecreta).toString(),
+      esDuoc: false,
+      rol: "usuario"
+    }
+  ];
+
+  usuarios = usuariosIniciales;
+  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+}
+
 // --- CARGAR REGIONES DESDE JSON ---
 fetch("data/regiones.json")
   .then(res => res.json())
@@ -25,7 +64,6 @@ fetch("data/regiones.json")
         });
       }
 
-      // Validar región y comuna automáticamente al cambiar región
       if(selectRegion.value !== "Selecciona Región" && selectRegion.value !== ""){
         selectRegion.setCustomValidity("");
         selectRegion.classList.remove("is-invalid");
@@ -40,7 +78,6 @@ fetch("data/regiones.json")
       }
     });
 
-    // Validación inmediata al seleccionar comuna
     selectComuna.addEventListener("change", () => {
       if(selectComuna.value !== "Selecciona Comuna" && selectComuna.value !== ""){
         selectComuna.setCustomValidity("");
@@ -49,7 +86,6 @@ fetch("data/regiones.json")
       }
     });
 
-    // Validación inmediata al salir del campo región
     selectRegion.addEventListener("blur", () => {
       if(selectRegion.value !== "Selecciona Región" && selectRegion.value !== ""){
         selectRegion.setCustomValidity("");
@@ -68,7 +104,6 @@ if (formRegistro) {
 
     formRegistro.classList.add("was-validated");
 
-    // --- Validación manual de Región y Comuna ---
     const selectRegion = document.getElementById("regRegion");
     const selectComuna = document.getElementById("regComuna");
     if (selectRegion.value === "Selecciona Región" || selectRegion.value === "") {
@@ -92,7 +127,8 @@ if (formRegistro) {
 
     const nombre = document.getElementById("regNombre").value.trim();
     const apellido = document.getElementById("regApellido").value.trim();
-    const rut = document.getElementById("regRut").value.trim();
+    const rutInput = document.getElementById("regRut");
+    const rut = rutInput.value.trim();
     const emailInput = document.getElementById("regEmail");
     const email = emailInput.value.trim();
     const password = document.getElementById("regPassword").value;
@@ -101,14 +137,14 @@ if (formRegistro) {
     const comuna = selectComuna.value;
     const telefono = document.getElementById("regTelefono").value;
 
-    // --- Validación RUT de 9 caracteres ---
+    // --- Validación RUT ---
     const rutRegex = /^[0-9]{8}[0-9Kk]$/;
     if(!rutRegex.test(rut)){
-      document.getElementById("regRut").setCustomValidity("Debes ingresar un RUT válido de 9 caracteres.");
+      rutInput.setCustomValidity("Debes ingresar un RUT válido de 9 caracteres.");
       formRegistro.classList.add("was-validated");
       return;
     } else {
-      document.getElementById("regRut").setCustomValidity("");
+      rutInput.setCustomValidity("");
     }
 
     // --- Validación de correo ---
@@ -121,7 +157,7 @@ if (formRegistro) {
       emailInput.setCustomValidity("");
     }
 
-    // Verificar edad si se incluyó fecha
+    // --- Validación de edad ---
     if(fecha){
       const nacimiento = new Date(fecha);
       const hoy = new Date();
@@ -137,7 +173,7 @@ if (formRegistro) {
       }
     }
 
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     if (usuarios.some(u => u.email === email)) {
       emailInput.setCustomValidity("Este correo ya está registrado.");
       formRegistro.classList.add("was-validated");
@@ -146,20 +182,22 @@ if (formRegistro) {
       emailInput.setCustomValidity("");
     }
 
-    // Encriptar contraseña con la misma como clave
-    const passwordEncriptada = CryptoJS.AES.encrypt(password, password).toString();
+    // --- Encriptar datos sensibles ---
+    const rutEncriptado = CryptoJS.AES.encrypt(rut, claveSecreta).toString();
+    const passwordEncriptada = CryptoJS.AES.encrypt(password, claveSecreta).toString();
 
     const nuevoUsuario = {
       nombre,
       apellido,
-      rut,
+      rut: rutEncriptado,
       email,
       fecha,
       region,
       comuna,
       telefono,
       password: passwordEncriptada,
-      esDuoc: email.endsWith("@duoc.cl")
+      esDuoc: email.endsWith("@duoc.cl"),
+      rol: "usuario"
     };
 
     usuarios.push(nuevoUsuario);
@@ -171,7 +209,6 @@ if (formRegistro) {
     formRegistro.prepend(alerta);
 
     setTimeout(() => {
-      // Cerrar modal de registro
       const modalRegistroEl = document.getElementById("modalRegistro");
       const modalRegistroInstance = bootstrap.Modal.getInstance(modalRegistroEl);
       modalRegistroInstance.hide();
@@ -180,11 +217,40 @@ if (formRegistro) {
       formRegistro.reset();
       formRegistro.classList.remove("was-validated");
 
-      // Abrir modal de login automáticamente
       const modalLoginEl = document.getElementById("modalLogin");
       const modalLoginInstance = new bootstrap.Modal(modalLoginEl);
       modalLoginInstance.show();
     }, 2000);
+  });
+}
+
+// --- VALIDACIÓN EN TIEMPO REAL DE EDAD ---
+const inputFecha = document.getElementById("regFecha");
+if (inputFecha) {
+  inputFecha.addEventListener("input", () => {
+    const fecha = inputFecha.value;
+    if (!fecha) {
+      inputFecha.setCustomValidity("Debes ingresar tu fecha de nacimiento.");
+      inputFecha.classList.add("is-invalid");
+      inputFecha.classList.remove("is-valid");
+      return;
+    }
+
+    const nacimiento = new Date(fecha);
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const mes = hoy.getMonth() - nacimiento.getMonth();
+    if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) edad--;
+
+    if (edad < 18) {
+      inputFecha.setCustomValidity("Debes ser mayor de 18 años.");
+      inputFecha.classList.add("is-invalid");
+      inputFecha.classList.remove("is-valid");
+    } else {
+      inputFecha.setCustomValidity("");
+      inputFecha.classList.remove("is-invalid");
+      inputFecha.classList.add("is-valid");
+    }
   });
 }
 
@@ -201,7 +267,7 @@ if (formLogin) {
     const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
 
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const usuario = usuarios.find(u => u.email === email);
 
     const alertaLoginExistente = document.querySelector("#formLogin .alert");
@@ -209,15 +275,27 @@ if (formLogin) {
 
     if(usuario){
       try {
-        const bytes = CryptoJS.AES.decrypt(usuario.password, password);
-        const passwordDec = bytes.toString(CryptoJS.enc.Utf8);
+        const bytesPass = CryptoJS.AES.decrypt(usuario.password, claveSecreta);
+        const passwordDec = bytesPass.toString(CryptoJS.enc.Utf8);
+
         if(passwordDec === password){
-          localStorage.setItem("usuario", JSON.stringify(usuario));
+          const bytesRut = CryptoJS.AES.decrypt(usuario.rut, claveSecreta);
+          const rutDec = bytesRut.toString(CryptoJS.enc.Utf8);
+          const usuarioSesion = {...usuario, rut: rutDec};
+
+          localStorage.setItem("usuario", JSON.stringify(usuarioSesion));
           const alerta = document.createElement("div");
           alerta.className = "alert alert-success mt-2";
           alerta.textContent = `Bienvenido, ${usuario.nombre}`;
           formLogin.prepend(alerta);
-          setTimeout(() => window.location.href = "../../index.html", 1500);
+
+          setTimeout(() => {
+            if(usuarioSesion.rol === "admin"){
+              window.location.href = "/sic/admin/index_admin.html";
+            } else {
+              window.location.href = "../../index.html";
+            }
+          }, 1500);
         } else {
           const alerta = document.createElement("div");
           alerta.className = "alert alert-danger mt-2";

@@ -57,26 +57,26 @@
           <div class="col-md-6">
             <label for="regNombre" class="form-label">Nombre</label>
             <input type="text" id="regNombre" class="form-control dark-input" required>
-            <div class="invalid-feedback">⚠️ Ingresa tu nombre.</div>
+            <div class="invalid-feedback"><i class="bi bi-exclamation-triangle-fill me-1"></i>Ingresa tu nombre.</div>
           </div>
 
           <div class="col-md-6">
             <label for="regApellido" class="form-label">Apellido</label>
             <input type="text" id="regApellido" class="form-control dark-input" required>
-            <div class="invalid-feedback">⚠️ Ingresa tu apellido.</div>
+            <div class="invalid-feedback"><i class="bi bi-exclamation-triangle-fill me-1"></i>Ingresa tu apellido.</div>
           </div>
 
           <div class="col-md-6">
             <label for="regRut" class="form-label">RUT</label>
             <input type="text" id="regRut" class="form-control dark-input" 
                    placeholder="123456789" pattern="[0-9]{8}[0-9Kk]" required>
-            <div class="invalid-feedback">⚠️ Ingresa un RUT válido sin guion.</div>
+            <div class="invalid-feedback"><i class="bi bi-exclamation-triangle-fill me-1"></i>Ingresa un RUT válido sin guion.</div>
           </div>
 
           <div class="col-md-6">
             <label for="regEmail" class="form-label">Correo electrónico</label>
             <input type="email" id="regEmail" class="form-control dark-input" required>
-            <div class="invalid-feedback">⚠️ Ingresa un correo válido.</div>
+            <div class="invalid-feedback"><i class="bi bi-exclamation-triangle-fill me-1"></i>Ingresa un correo válido.</div>
             <small class="form-text text-info">
               <i class="bi bi-gift-fill me-1"></i> Usa un correo <strong>@duoc.cl</strong> y obtén 20% de descuento.
             </small>
@@ -86,31 +86,35 @@
             <label for="regRegion" class="form-label">Región</label>
             <select id="regRegion" class="form-select dark-input" required>
               <option disabled selected>Selecciona Región</option>
-              <!-- Las regiones se cargan dinámicamente desde regiones.json -->
             </select>
-            <div class="invalid-feedback">⚠️ Debes seleccionar una región.</div>
+            <div class="invalid-feedback"><i class="bi bi-exclamation-triangle-fill me-1"></i>Debes seleccionar una región.</div>
           </div>
 
           <div class="col-md-6">
             <label for="regComuna" class="form-label">Comuna</label>
             <select id="regComuna" class="form-select dark-input" required>
               <option disabled selected>Selecciona Comuna</option>
-              <!-- Las comunas se cargan dinámicamente según la región seleccionada -->
             </select>
-            <div class="invalid-feedback">⚠️ Debes seleccionar una comuna.</div>
+            <div class="invalid-feedback"><i class="bi bi-exclamation-triangle-fill me-1"></i>Debes seleccionar una comuna.</div>
           </div>
 
           <div class="col-md-6">
             <label for="regTelefono" class="form-label">Teléfono</label>
             <input type="tel" id="regTelefono" class="form-control dark-input" 
                    placeholder="Ej: 987654321" pattern="[0-9]{9,12}" required>
-            <div class="invalid-feedback">⚠️ Ingresa un número válido (9 a 12 dígitos).</div>
+            <div class="invalid-feedback"><i class="bi bi-exclamation-triangle-fill me-1"></i>Ingresa un número válido (9 a 12 dígitos).</div>
           </div>
 
           <div class="col-md-6">
             <label for="regPassword" class="form-label">Contraseña</label>
             <input type="password" id="regPassword" class="form-control dark-input" minlength="6" required>
-            <div class="invalid-feedback">⚠️ La contraseña debe tener al menos 6 caracteres.</div>
+            <div class="invalid-feedback"><i class="bi bi-exclamation-triangle-fill me-1"></i>La contraseña debe tener al menos 6 caracteres.</div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="regFecha" class="form-label">Fecha de nacimiento</label>
+            <input type="date" id="regFecha" class="form-control dark-input" required>
+            <div class="invalid-feedback"><i class="bi bi-exclamation-triangle-fill me-1"></i>Debes ser mayor de 18 años.</div>
           </div>
 
           <div class="col-12">

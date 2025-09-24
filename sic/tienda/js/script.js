@@ -28,6 +28,7 @@ window.actualizarNavbarUsuario = () => {
   if (window.usuario && userNameSpan) {
     userNameSpan.textContent = window.usuario.nombre || "Invitado";
 
+    // Mostrar/ocultar items según login
     menu.forEach(item => {
       const text = item.textContent.toLowerCase();
       if (text.includes("ingresar") || text.includes("registrar")) {
@@ -49,6 +50,17 @@ window.actualizarNavbarUsuario = () => {
       }
     });
 
+    // --- AGREGAR LINK A PANEL ADMIN ---
+    if(window.usuario.rol === "admin"){
+      let adminItem = document.getElementById("btnAdminPanel");
+      if(!adminItem){
+        adminItem = document.createElement("li");
+        adminItem.innerHTML = `<a class="dropdown-item" id="btnAdminPanel" href="/sic/admin/index_admin.html">Panel Admin</a>`;
+        const dropdownMenu = document.querySelector("#nav .dropdown-menu");
+        if(dropdownMenu) dropdownMenu.insertBefore(adminItem, dropdownMenu.firstChild);
+      }
+    }
+
     if (btnUnete) btnUnete.style.display = "none";
   } else {
     menu.forEach(item => {
@@ -59,6 +71,7 @@ window.actualizarNavbarUsuario = () => {
       }
       if (item.id === "btnLogout") item.style.display = "none";
       if (text.includes("perfil")) item.style.display = "none";
+      if(item.id === "btnAdminPanel") item.remove(); // eliminar link admin si no es admin
     });
     if (userNameSpan) userNameSpan.textContent = "Invitado";
     if (btnUnete) btnUnete.style.display = "inline-block";
